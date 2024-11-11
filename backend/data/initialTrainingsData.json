@@ -1,0 +1,212 @@
+[
+    {
+        "trainingName": "אימון כושר כללי",
+        "trainingDetailes": "אימון לשיפור הכושר הכללי",
+        "time": { "date": "2024-11-01", "time": "09:00", "length": "60 דקות" },
+        "TrainingGuideDetails": {
+        "first": "רועי",
+        "last": "כהן",
+        "phone": "0501234567",
+        "email": "roi@example.com"
+        },
+        "participants": [],
+        "createAt": "2024-10-28",
+        "isCanceled": false
+    },
+    {
+        "trainingName": "אימון כוח",
+        "trainingDetailes": "אימון להעלאת מסת שריר",
+        "time": { "date": "2024-11-02", "time": "10:00", "length": "75 דקות" },
+        "TrainingGuideDetails": {
+        "first": "הילה",
+        "last": "לוי",
+        "phone": "0529876543",
+        "email": "hila@example.com"
+        },
+        "participants": [],
+        "createAt": "2024-10-28",
+        "isCanceled": false
+    },
+    {
+        "trainingName": "פילאטיס",
+        "trainingDetailes": "אימון ליציבה וחיזוק הגוף",
+        "time": { "date": "2024-11-03", "time": "11:30", "length": "50 דקות" },
+        "TrainingGuideDetails": {
+        "first": "מיכל",
+        "last": "גפן",
+        "phone": "0541234567",
+        "email": "michal@example.com"
+        },
+        "participants": [],
+        "createAt": "2024-10-28",
+        "isCanceled": false
+    },
+    {
+        "trainingName": "יוגה",
+        "trainingDetailes": "אימון לנשימה וגמישות",
+        "time": { "date": "2024-11-04", "time": "08:00", "length": "60 דקות" },
+        "TrainingGuideDetails": {
+        "first": "אלי",
+        "last": "רובין",
+        "phone": "0531122334",
+        "email": "eli@example.com"
+        },
+        "participants": [],
+        "createAt": "2024-10-28",
+        "isCanceled": false
+    },
+    {
+        "trainingName": "קרוספיט",
+        "trainingDetailes": "אימון אינטנסיבי לכל הגוף",
+        "time": { "date": "2024-11-05", "time": "18:00", "length": "45 דקות" },
+        "TrainingGuideDetails": {
+        "first": "נועה",
+        "last": "שרון",
+        "phone": "0551239876",
+        "email": "noa@example.com"
+        },
+        "participants": [],
+        "createAt": "2024-10-28",
+        "isCanceled": false
+    },
+    {
+        "trainingName": "זומבה",
+        "trainingDetailes": "אימון ריקוד עם קצב",
+        "time": { "date": "2024-11-06", "time": "17:00", "length": "55 דקות" },
+        "TrainingGuideDetails": {
+        "first": "גלית",
+        "last": "כץ",
+        "phone": "0509876543",
+        "email": "galit@example.com"
+        },
+        "participants": [],
+        "createAt": "2024-10-28",
+        "isCanceled": false
+    },
+    {
+        "trainingName": "אימון סיבולת לב ריאה",
+        "trainingDetailes": "אימון לשיפור הסיבולת והכושר הקרדיווסקולרי",
+        "time": { "date": "2024-11-07", "time": "07:30", "length": "90 דקות" },
+        "TrainingGuideDetails": {
+        "first": "יובל",
+        "last": "פז",
+        "phone": "0511234567",
+        "email": "yuval@example.com"
+        },
+        "participants": [],
+        "createAt": "2024-10-28",
+        "isCanceled": false
+    },
+    {
+        "trainingName": "אימון אירובי",
+        "trainingDetailes": "אימון לשריפת קלוריות",
+        "time": { "date": "2024-11-08", "time": "16:00", "length": "45 דקות" },
+        "TrainingGuideDetails": {
+        "first": "רונית",
+        "last": "שפירא",
+        "phone": "0534567890",
+        "email": "ronit@example.com"
+        },
+        "participants": [],
+        "createAt": "2024-10-28",
+        "isCanceled": false
+    },
+    {
+        "trainingName": "אימון היט",
+        "trainingDetailes": "אימון אינטרוולי בעצימות גבוהה",
+        "time": { "date": "2024-11-09", "time": "19:00", "length": "30 דקות" },
+        "TrainingGuideDetails": {
+        "first": "אורן",
+        "last": "רז",
+        "phone": "0549876543",
+        "email": "oren@example.com"
+        },
+        "participants": [],
+        "createAt": "2024-10-28",
+        "isCanceled": false
+    },
+    {
+        "trainingName": "אימון טאי צ'י",
+        "trainingDetailes": "אימון להרפיה וחיבור גוף ונפש",
+        "time": { "date": "2024-11-10", "time": "08:30", "length": "60 דקות" },
+        "TrainingGuideDetails": {
+        "first": "שרה",
+        "last": "ברק",
+        "phone": "0527654321",
+        "email": "sara@example.com"
+        },
+        "participants": [],
+        "createAt": "2024-10-28",
+        "isCanceled": false
+    },
+    {
+        "trainingName": "אימון קיקבוקסינג",
+        "trainingDetailes": "אימון לחיזוק שרירי הגוף כולו",
+        "time": { "date": "2024-11-11", "time": "18:30", "length": "50 דקות" },
+        "TrainingGuideDetails": {
+        "first": "יוסי",
+        "last": "עוז",
+        "phone": "0506543210",
+        "email": "yossi@example.com"
+        },
+        "participants": [],
+        "createAt": "2024-10-28",
+        "isCanceled": false
+    },
+    {
+        "trainingName": "אימון אישי",
+        "trainingDetailes": "אימון מותאם אישית לפי צורך",
+        "time": { "date": "2024-11-12", "time": "15:00", "length": "60 דקות" },
+        "TrainingGuideDetails": {
+        "first": "תמר",
+        "last": "כהן",
+        "phone": "0543219876",
+        "email": "tamar@example.com"
+        },
+        "participants": [],
+        "createAt": "2024-10-28",
+        "isCanceled": false
+    },
+    {
+        "trainingName": "אימון גמישות",
+        "trainingDetailes": "אימון לשיפור טווח התנועה",
+        "time": { "date": "2024-11-13", "time": "13:00", "length": "40 דקות" },
+        "TrainingGuideDetails": {
+        "first": "דנה",
+        "last": "אילן",
+        "phone": "0551234567",
+        "email": "dana@example.com"
+        },
+        "participants": [],
+        "createAt": "2024-10-28",
+        "isCanceled": false
+    },
+    {
+        "trainingName": "אימון ריצה",
+        "trainingDetailes": "אימון ריצה למתחילים",
+        "time": { "date": "2024-11-14", "time": "06:00", "length": "30 דקות" },
+        "TrainingGuideDetails": {
+        "first": "אורי",
+        "last": "מלכה",
+        "phone": "0504321765",
+        "email": "uri@example.com"
+        },
+        "participants": [],
+        "createAt": "2024-10-28",
+        "isCanceled": false
+    },
+    {
+        "trainingName": "אימון ריקוד",
+        "trainingDetailes": "אימון משולב של ריקוד וחיזוק שרירים",
+        "time": { "date": "2024-11-15", "time": "20:00", "length": "45 דקות" },
+        "TrainingGuideDetails": {
+        "first": "איילת",
+        "last": "עוזרי",
+        "phone": "0538765432",
+        "email": "ayelet@example.com"
+        },
+        "participants": [],
+        "createAt": "2024-10-28",
+        "isCanceled": false
+    }
+]

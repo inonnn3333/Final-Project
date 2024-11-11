@@ -1,0 +1,23 @@
+.btnDiv {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4em;
+    background-color: #3333334e;
+    text-align: center;
+}
+
+.button {
+    transition-duration: 0.3s;
+    border-radius: 8px;
+    padding: 1em;
+    margin: 1em;
+    border: none;
+}
+
+.button:hover {
+    cursor: pointer;
+    background-color: #EF9595;
+    color: white;
+}

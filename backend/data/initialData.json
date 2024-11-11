@@ -1,0 +1,52 @@
+[
+    {
+        "name": { "first": "יונתן", "last": "כהן" },
+        "phone": "0501234567",
+        "email": "yonatan@example.com",
+        "password": "password1",
+        "address": { "city": "תל אביב", "street": "השלום", "houseNumber": 12 },
+        "isAdmin": false,
+        "createAt": "2024-10-28",
+        "isActive": true
+    },
+    {
+        "name": { "first": "שרה", "last": "לוי" },
+        "phone": "0529876543",
+        "email": "sara@example.com",
+        "password": "password2",
+        "address": { "city": "ירושלים", "street": "העצמאות", "houseNumber": 7 },
+        "isAdmin": true,
+        "createAt": "2024-10-28",
+        "isActive": true
+    },
+    {
+        "name": { "first": "מיכאל", "last": "רובין" },
+        "phone": "0541239876",
+        "email": "michael@example.com",
+        "password": "password3",
+        "address": { "city": "חיפה", "street": "הדרור", "houseNumber": 3 },
+        "isAdmin": false,
+        "createAt": "2024-10-28",
+        "isActive": false
+    },
+    {
+        "name": { "first": "רונית", "last": "שרון" },
+        "phone": "0501122334",
+        "email": "ronit@example.com",
+        "password": "password4",
+        "address": { "city": "באר שבע", "street": "הנביאים", "houseNumber": 15 },
+        "isAdmin": false,
+        "createAt": "2024-10-28",
+        "isActive": true
+    },
+    {
+        "name": { "first": "דוד", "last": "כץ" },
+        "phone": "0539876543",
+        "email": "david@example.com",
+        "password": "password5",
+        "address": { "city": "פתח תקווה", "street": "המייסדים", "houseNumber": 22 },
+        "isAdmin": false,
+        "createAt": "2024-10-28",
+        "isActive": true
+    }
+]
