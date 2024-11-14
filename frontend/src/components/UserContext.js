@@ -11,7 +11,8 @@ export const UserProvider = ({ children }) => {
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
-            setUser(JSON.parse(storedUser));
+            const decodedData = jwtDecode(storedUser);
+            setUser(decodedData);
         }
 
         const storedTheme = localStorage.getItem('theme');
@@ -22,7 +23,6 @@ export const UserProvider = ({ children }) => {
 
     const login = (userData) => {
         const deCode = jwtDecode(userData);
-        console.log(deCode);
         setUser(deCode);
         localStorage.setItem('user', JSON.stringify(userData));
     };

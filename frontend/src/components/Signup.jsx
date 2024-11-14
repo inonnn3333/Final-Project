@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { UserContext } from './UserContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 
 function Signup() {
+    const { login } = useContext(UserContext);
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -40,9 +42,9 @@ function Signup() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-        const response = await axios.post('http://localhost:1010/users', formData);
-        console.log('Registration successful:', response.data);
-        navigate('/') 
+            const response = await axios.post('http://localhost:1010/users', formData);
+            navigate('/login') 
+            return response;
         } catch (err) {
             if (err.status === 403) {
                 console.error('משתמש קיים');

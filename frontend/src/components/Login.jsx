@@ -8,7 +8,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const { user, setUser, login, toggleTheme } = useContext(UserContext);
+    const {login, toggleTheme } = useContext(UserContext);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -20,20 +20,21 @@ const Login = () => {
 
         try {
             const response  = await axios.post('http://localhost:1010/users/login', {email, password});
-            login(response.data);
-
-            navigate('/');
-            setError('');
+            const token = response.data;
+            
+            if (token) {                
+                login(token);
+                navigate('/');
+                setError('');
+            }
         } catch {
             setError('Login failed. Please check your credentials.');
         }
     };
 
-    useEffect(() =>{
+    useEffect(()=> {
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
-            setUser(JSON.parse(storedUser));
-            login(user);
             navigate('/');
         }
 
