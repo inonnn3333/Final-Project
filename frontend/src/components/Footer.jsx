@@ -11,8 +11,9 @@ const Footer = () => {
             <button className='button' onClick={() => navigate('/')}>כל השיעורים</button>
             <button className='button' onClick={() => navigate('/my-favorites')}>שיעורים שהזמנתי</button>
             <button className='button' onClick={() => navigate('/my-users')}>הלקוחות שלי</button>
+            <button className='button'>משתתפים בשיעורים</button>
         </div>
     )
 }
 
-export default Footer
+export default Footer;

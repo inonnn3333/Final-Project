@@ -2,6 +2,7 @@ import { app } from "../../app.mjs";
 import { User } from "./users.model.mjs";
 import moment from 'moment';
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 
 app.post('/users/login', async (req, res) => {
@@ -16,8 +17,15 @@ app.post('/users/login', async (req, res) => {
         return res.status(403).send({"message":"Email or password is inncorect"});
     }
 
-    res.send([user.name.first, user.name.last, user.email, user.isAdmin, user.isActive]);
-
+    const token = jwt.sign({
+        _id: user._id,
+        firstName: user.name.first,
+        lastName: user.name.last,
+        isAdmin: user.isAdmin
+    }, process.env.JWT_SECRET, {expiresIn: '1h'})
+    console.log(token);
+    
+    res.send(token);
 });
 
 

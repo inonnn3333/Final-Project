@@ -1,15 +1,18 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 
 async function main () {
     try {
-        //! In "connection" variable, I need to add a condition: if the DB is LOCAL or from CLOUD.
-        const connection = "mongodb://127.0.0.1:27017/finalProject";
+        const connection = process.env.NODE_ENV === 'development' ? process.env.MONGO_DB_URL : process.env.ATLAS_URL;
         await mongoose.connect(connection);
         console.log((' Database connected '));
     } catch (err) {
-        console.error(chalk.red("Error connecting to database: " + err));
+        console.error(("Error connecting to database: " + err));
     }
 }
 main().catch(err => console.error((err)));

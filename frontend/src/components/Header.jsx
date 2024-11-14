@@ -20,7 +20,7 @@ const Header = () => {
             {user ? 
                 <p>
                     שלום
-                    {` ${user[0]}  ${user[1]}`}
+                    {`${user.firstName} ${user.lastName}`}
                 </p>
                 :
                 <p>שלום אורח</p>            

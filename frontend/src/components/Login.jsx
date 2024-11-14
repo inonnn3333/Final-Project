@@ -13,15 +13,15 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!email || !password) {
+        if (!email || !password) {  
             setError('נא למלא את כל השדות');
             return;
-        }
+        } 
 
         try {
             const response  = await axios.post('http://localhost:1010/users/login', {email, password});
             login(response.data);
-            
+
             navigate('/');
             setError('');
         } catch {
