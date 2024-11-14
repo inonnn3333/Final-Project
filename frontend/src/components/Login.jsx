@@ -22,7 +22,7 @@ const Login = () => {
             const response  = await axios.post('http://localhost:1010/users/login', {email, password});
             const token = response.data;
             
-            if (token) {                
+            if (token) {     
                 login(token);
                 navigate('/');
                 setError('');
