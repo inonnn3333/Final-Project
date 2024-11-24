@@ -8,7 +8,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const {login, toggleTheme } = useContext(UserContext);
+    const { login, toggleTheme } = useContext(UserContext);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -31,18 +31,6 @@ const Login = () => {
             setError('Login failed. Please check your credentials.');
         }
     };
-
-    useEffect(()=> {
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            navigate('/');
-        }
-
-        const storedTheme = localStorage.getItem('theme');
-        if (storedTheme) {
-            toggleTheme();
-        }
-    },[]);
 
     return (
         <div className="login-container">

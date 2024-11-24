@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react';
-import { UserContext } from './UserContext';
+import React, { useState } from 'react';
+// import { UserContext } from './UserContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 
 function Signup() {
-    const { login } = useContext(UserContext);
+    // const { login } = useContext(UserContext);
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({

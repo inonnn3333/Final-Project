@@ -23,6 +23,7 @@ app.get('/trainings/:id', async (req, res) => {
 
 
 app.get('/trainings/my-trainings', async (req, res) => {
+    
 });
 
 

@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import '../styles/style.css'
 import axios from 'axios';
 
-
-
 const Users = () => {
 
     const [data, setData] = useState([]);
@@ -12,39 +10,38 @@ const Users = () => {
         const confirmDelete = window.confirm("האם ברצונך למחוק את המשתמש?");
         if (confirmDelete) {
             try {
-                const response = await axios.delete(`http://localhost:1010/users/${userId}`, {
-                    method: 'DELETE',
+                await axios.delete(`http://localhost:1010/users/${userId}`, {
+                    headers: {
+                        authorization: localStorage.getItem('user'),
+                    },
                 });
-                if (response.ok) {
-                    // עדכן את רשימת המשתמשים לאחר המחיקה
-                    setData(data.filter((user) => user._id !== userId));
-                    console.log("User deleted successfully");
-                } else {
-                    console.error("Failed to delete user");
-                }
+                setData((prevData) => prevData.filter((user) => user._id !== userId));
             } catch (error) {
                 console.error("Error deleting user:", error);
             }
         }
     };
 
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:1010/users');
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const result = await response.json();
-                setData(result);
-                } catch (error) {
-                //! setError(error);
-            } finally {
-                //! setLoading(false);
+                const response = await axios.get('http://localhost:1010/users', {
+                    headers: {
+                        authorization: localStorage.getItem('user'),
+                    }}
+                );
+
+                // if (!response.ok) {
+                //     throw new Error('Network response was not ok');
+                // }
+                setData(response.data);
+            } catch (err) {
+                console.log(err);
             }
         }
         fetchData();
-    },[data]);
+    },[]);
 
     return (
         <div>

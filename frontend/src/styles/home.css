@@ -1,20 +1,54 @@
-.classCard {
-    border: 1px solid #ccc;
+.home-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.class-card-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+.class-card {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     border-radius: 10px;
     padding: 15px;
-    margin: 10px 0;
-    background-color: #f9f9f9;
+    background-color: #f1f1f1;
+    line-height: 10px;
 }
 
 h1 {
-    text-align: center;
-    color: #333;
+    color: #13152d;
+    font-size: 20px;
 }
 
 h2 {
-    color: #007BFF;
+    width: 100%;
+    color: #FF6D4C;
+    font-size: 16px;
 }
 
-p {
-    margin: 5px 0;
+.icons {
+    width: 15px;
+}
+
+.button-home {
+    width: 8em;
+    border-radius: 10px 0 0 10px;
+    background-color: #FF6D4C;
+    border: none;
+    height: 100%;
+}
+
+.button-home:hover {
+    background-color: #ff6d4cdc;
+    cursor: pointer;
 }

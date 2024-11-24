@@ -13,23 +13,25 @@ const Footer = () => {
                     className='button'
                     onClick={() => navigate('/')}>
                         <img src="/images/home-icon.png" alt="profile-icon" />
-                        <p>בית</p>
                 </button>
                 <button
                     className='button'
                     onClick={() => navigate('/my-favorites')}>
                         <img src="/images/heart-icon.png" alt="profile-icon" />
-                        <p>בחירותיי</p>
                 </button>
                 <button
                     className='button'
                     onClick={() => navigate('/')}>
                         <img src="/images/profile-icon.png" alt="profile-icon" />
-                        <p>פרופיל</p>
                 </button>
 
-                {/* <button className='button' onClick={() => navigate('/my-users')}>הלקוחות שלי</button>
-                <button className='button'>משתתפים בשיעורים</button> */}
+                <button
+                    className='button'
+                    onClick={() => navigate('/my-users')}>
+                        <img src="/images/users-list-icon.png" alt="profile-icon" />
+                    </button>
+
+                {/* <button className='button'>משתתפים בשיעורים</button> */}
             </div>
         </div>
     )

@@ -1,7 +1,8 @@
 import { app } from "../../app.mjs";
+import { guard } from "../gurad.mjs";
 import { User } from "./users.model.mjs";
 
-app.get('/users', async (req, res) => {
+app.get('/users', guard ,async (req, res) => {
     res.send(await User.find());
 });
 

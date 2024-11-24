@@ -34,18 +34,27 @@ const Home = () => {
 
 
     return (
-        <div>
-            <h1>שיעורי ספורט בסטודיו</h1>
-            <div>
+        <div className='home-container'>
+            <h1>שיעורים</h1>
+            <div className='class-card-container'>
                 {data.map((item, index) => (
-                    <div key={index} className="classCard">
-                        <h2>{item.trainingName}</h2>
-                        <p><strong>מורה:</strong> {item.TrainingGuideDetails.first + item.TrainingGuideDetails.last}</p>
-                        <p><strong>תאריך:</strong> {item.time.date}</p>
-                        <p><strong>שעה:</strong> {item.time.time}</p>
-                        <p><strong>משתתפים:</strong> {item.participants.join}</p>
+                    <div key={index} className="class-card">
                         <div>
-                            <button onClick={() => handleBooking(index)}>
+                            <h2>{item.trainingName}</h2>
+                        </div>
+                        <div>
+                            <p><strong>מורה:</strong> {`${item.TrainingGuideDetails.first} ${item.TrainingGuideDetails.last}`}</p>
+                            <p><strong>מתי?</strong> {item.time.time}</p>
+                            <p>
+                                <img src="/images/clock-icon.png" alt="profile-icon" className='icons'/>
+                                {item.time.time}</p>
+                            <p>
+                                <img src="/images/peoples-icon.png" alt="profile-icon" className='icons'/>
+                                {item.participants.join}
+                            </p>
+                        </div>
+                        <div>
+                            <button onClick={() => handleBooking(index)} className='button-home'>
                                 {bookingStatus[index] ? 'בטל תור' : 'תפוס תור'}
                             </button>
                         </div>
