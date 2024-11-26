@@ -1,0 +1,97 @@
+[
+    {
+        "trainingName": "אימון כושר כללי",
+        "trainingDetailes": "אימון לשיפור הכושר הכללי",
+        "time": {
+            "date": "2024-11-03",
+            "time": "09:00",
+            "length": "60 דקות"
+        },
+        "TrainingGuideDetails": {
+            "first": "רועי",
+            "last": "כהן",
+            "phone": 501234567,
+            "email": "roi.kohen@example.com"
+        },
+        "createAt": "2024-11-26",
+        "participants": [],
+        "isCanceled": false,
+        "user_id": null
+    },
+    {
+        "trainingName": "אימון יוגה למתחילים",
+        "trainingDetailes": "אימון להיכרות עם יסודות היוגה",
+        "time": {
+            "date": "2024-11-07",
+            "time": "18:00",
+            "length": "45 דקות"
+        },
+        "TrainingGuideDetails": {
+            "first": "נועה",
+            "last": "לוי",
+            "phone": 502345678,
+            "email": "noa.levi@example.com"
+        },
+        "createAt": "2024-11-26",
+        "participants": [],
+        "isCanceled": true,
+        "user_id": null
+    },
+    {
+        "trainingName": "אימון משקולות מתקדמים",
+        "trainingDetailes": "אימון לפיתוח מסת שריר וחיזוק",
+        "time": {
+            "date": "2024-11-12",
+            "time": "20:00",
+            "length": "90 דקות"
+        },
+        "TrainingGuideDetails": {
+            "first": "דוד",
+            "last": "בן דוד",
+            "phone": 503456789,
+            "email": "david.bendavid@example.com"
+        },
+        "createAt": "2024-11-26",
+        "participants": [],
+        "isCanceled": false,
+        "user_id": null
+    },
+    {
+        "trainingName": "אימון אירובי אינטנסיבי",
+        "trainingDetailes": "אימון אירובי לשריפת קלוריות",
+        "time": {
+            "date": "2024-11-15",
+            "time": "07:00",
+            "length": "30 דקות"
+        },
+        "TrainingGuideDetails": {
+            "first": "מאיה",
+            "last": "רוזן",
+            "phone": 504567890,
+            "email": "maya.rozen@example.com"
+        },
+        "createAt": "2024-11-26",
+        "participants": [],
+        "isCanceled": false,
+        "user_id": null
+    },
+    {
+        "trainingName": "אימון ריצה בקבוצה",
+        "trainingDetailes": "אימון קבוצתי לריצה משותפת",
+        "time": {
+            "date": "2024-11-20",
+            "time": "19:00",
+            "length": "60 דקות"
+        },
+        "TrainingGuideDetails": {
+            "first": "יוסי",
+            "last": "אשכנזי",
+            "phone": 505678901,
+            "email": "yossi.ashkenazi@example.com"
+        },
+        "createAt": "2024-11-26",
+        "participants": [],
+        "isCanceled": true,
+        "user_id": null
+    }
+]

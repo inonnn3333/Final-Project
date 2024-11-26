@@ -9,13 +9,10 @@ const Header = () => {
     const { user, setUser, logout, theme, toggleTheme } = useContext(UserContext);
     const [theShortenName, setTheShortenName] = useState("אא");
 
-    const shortenName = (firstName, lastName) => {
-        if (!firstName || !lastName) {
-            return;
-        }
-        
-        const firstInitial = firstName[0];
-        const lastInitial = lastName[0];
+    const shortenName = () => {
+
+        const firstInitial = user.firstName[0];
+        const lastInitial = user.lastName[0];
         
         setTheShortenName(`${firstInitial}${lastInitial}`);
     }
@@ -34,6 +31,9 @@ const Header = () => {
             }
         };
         decodeAndSetUser();
+        if (user) {
+            shortenName()
+        }
     }, [setUser, user]);
 
     return (
@@ -50,6 +50,7 @@ const Header = () => {
                 <button className='btn-login' onClick={() => {logout(); navigate('/login');}}
                 >
                     <img src="/images/logout-icon.png" alt="logout-icon" className='icons'/>
+                    התנתק
                 </button>
                 ) : null
             }

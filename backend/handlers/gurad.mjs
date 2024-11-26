@@ -8,3 +8,19 @@ export const guard =  (req, res, next) => {
         } else next();
     })
 };
+
+
+
+export const getUser = (req) => {
+    if (!req.headers.authorization) {
+        return null;
+    }
+
+    const user = jwt.decode(req.headers.authorization, process.env.JWT_SECRET);
+    
+    if (!user) {
+        return null;
+    }
+    console.log(user);
+    return user;
+}

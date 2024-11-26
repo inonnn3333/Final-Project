@@ -11,7 +11,7 @@ const TrainingGuideDetails = new Schema({
 });
 
 const TrainingTime = new Schema({
-    date: Date,
+    date: String,
     time: String,
     length: String,
 });
@@ -23,8 +23,14 @@ const schema = new Schema({
     time: TrainingTime,
     TrainingGuideDetails: TrainingGuideDetails,
     createAt: String,
-    participants: Array,
+    participants: {
+        type: [Schema.Types.ObjectId],
+        default: []
+    },
     isCanceled: Boolean,
+    user_id: {
+        type: Schema.Types.ObjectId,
+    }
 });
 
 export const Training = mongoose.model("trainings", schema);

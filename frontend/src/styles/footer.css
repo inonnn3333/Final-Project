@@ -27,10 +27,29 @@
     margin: 0 0.5em 0 0.5em;
     color: #fff;
     border: none;
+    text-align: center;
 }
 
 .button:hover {
     cursor: pointer;
     background-color: #d7d7d730;
     color: white;
+}
+
+.tooltip {
+    visibility: hidden;
+    height: 2em;
+    padding: 0 1em 0 1em;
+    text-align: center;
+    margin: 0 3em 1em 2em;
+    background-color: #363636;
+    border-radius: 8px;
+    color: #fff;
+    position: absolute;
+    bottom: 2em;
+}
+
+.button:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
 }
