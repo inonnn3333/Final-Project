@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from './UserContext';
+
 import '../styles/footer.css';
 
 
 const Footer = () => {
     const navigate = useNavigate();
+    const { user } = useContext(UserContext);
 
     return (
         <div className='footer-container'>
@@ -21,6 +24,14 @@ const Footer = () => {
                         <span className="tooltip">בחירותיי</span>
                         <img src="/images/heart-icon.png" alt="profile-icon" />
                 </button>
+                {user.isAdmin ? 
+                    <button
+                        className='button' id='plus-button'
+                        onClick={() => navigate('/new-training')}>
+                            <span className="tooltip">פרופיל</span>
+                            <img src="/images/plus-icon.png" alt="profile-icon" />
+                    </button> : null
+                }
                 <button
                     className='button'
                     onClick={() => navigate('/')}>

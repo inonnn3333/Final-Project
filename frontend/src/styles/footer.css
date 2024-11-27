@@ -30,6 +30,19 @@
     text-align: center;
 }
 
+#plus-button {
+    background-color: #FF6D4C;
+    width: 5em;
+    height: 5em;
+    border-radius: 50px;
+    position: relative;
+    bottom: 1em;
+}
+
+#plus-button:hover {
+    background-color: #e45f41;
+}
+
 .button:hover {
     cursor: pointer;
     background-color: #d7d7d730;

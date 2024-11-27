@@ -8,6 +8,7 @@ import Footer from './components/Footer.jsx';
 import Users from './components/Users.jsx';
 import Signup from './components/Signup.jsx';
 import { UserProvider } from './components/UserContext.js';
+import NewTraining from './components/NewTraining.jsx';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<Home />} /> 
           <Route path="/my-favorites" element={<MyTrainings />} />
+          <Route path="/new-training" element={<NewTraining />} />
           <Route path="/my-users" element={<Users />} />
         </Routes>
       <Footer/>
