@@ -52,3 +52,9 @@ h2 {
     background-color: #ff6d4cdc;
     cursor: pointer;
 }
+
+.search-input {
+    width: 30em;
+    border-radius: 100px;
+    padding-right: 1em;
+}

@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/home.css';
 
-
 const Home = () => {
     const [data, setData] = useState([]);
     const [bookingStatus, setBookingStatus] = useState({});
-
+    const [searchQuery, setSearchQuery] = useState(''); // State לשורת החיפוש
 
     const handleBooking = (index) => {
         setBookingStatus((prevStatus) => ({
-        ...prevStatus,
-        [index]: !prevStatus[index] // הופך את המצב של כל שיעור בין true ל-false
+            ...prevStatus,
+            [index]: !prevStatus[index] // הופך את המצב של כל שיעור בין true ל-false
         }));
     };
 
@@ -23,21 +22,34 @@ const Home = () => {
                 }
                 const result = await response.json();
                 setData(result);
-                } catch (error) {
-                //! setError(error);
-            } finally {
-                //! setLoading(false);
+            } catch (error) {
+                console.error(error); // טיפול בשגיאות
             }
-        }
+        };
         fetchData();
-    },[]);
+    }, []);
 
+    // סינון הנתונים לפי שורת החיפוש
+    const filteredData = data.filter((item) =>
+        item.trainingName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        `${item.TrainingGuideDetails.first} ${item.TrainingGuideDetails.last}`.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     return (
         <div className='home-container'>
             <h1>שיעורים</h1>
+
+            {/* שורת חיפוש */}
+            <input
+                type="text"
+                placeholder="חפש שיעור או מורה..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="search-input"
+            />
+
             <div className='class-card-container'>
-                {data.map((item, index) => (
+                {filteredData.map((item, index) => (
                     <div key={index} className="class-card">
                         <div>
                             <h2>{item.trainingName}</h2>
@@ -46,10 +58,11 @@ const Home = () => {
                             <p><strong>מורה:</strong> {`${item.TrainingGuideDetails.first} ${item.TrainingGuideDetails.last}`}</p>
                             <p><strong>מתי?</strong> {item.time.time}</p>
                             <p>
-                                <img src="/images/clock-icon.png" alt="profile-icon" className='icons'/>
-                                {item.time.time}</p>
+                                <img src="/images/clock-icon.png" alt="profile-icon" className='icons' />
+                                {item.time.time}
+                            </p>
                             <p>
-                                <img src="/images/peoples-icon.png" alt="profile-icon" className='icons'/>
+                                <img src="/images/peoples-icon.png" alt="profile-icon" className='icons' />
                                 {item.participants.join}
                             </p>
                         </div>

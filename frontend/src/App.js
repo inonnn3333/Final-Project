@@ -9,23 +9,25 @@ import Users from './components/Users.jsx';
 import Signup from './components/Signup.jsx';
 import { UserProvider } from './components/UserContext.js';
 import NewTraining from './components/NewTraining.jsx';
+import MyProfile from './components/gg.jsx';
 
 function App() {
   return (
-      <Router>
-    <UserProvider>
-      <Header/>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/" element={<Home />} /> 
-          <Route path="/my-favorites" element={<MyTrainings />} />
-          <Route path="/new-training" element={<NewTraining />} />
-          <Route path="/my-users" element={<Users />} />
-        </Routes>
-      <Footer/>
-    </UserProvider>
-      </Router>
+    <Router>
+      <UserProvider>
+        <Header/>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/" element={<Home />} /> 
+            <Route path="/my-favorites" element={<MyTrainings />} />
+            <Route path="/new-training" element={<NewTraining />} />
+            <Route path="/edit-profile" element={<MyProfile/>} />
+            <Route path="/my-users" element={<Users />} />
+          </Routes>
+        <Footer/>
+      </UserProvider>
+    </Router>
   );
 }
 

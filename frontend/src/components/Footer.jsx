@@ -24,17 +24,17 @@ const Footer = () => {
                         <span className="tooltip">בחירותיי</span>
                         <img src="/images/heart-icon.png" alt="profile-icon" />
                 </button>
-                {user.isAdmin ? 
+                {/* {user.isAdmin && 
                     <button
                         className='button' id='plus-button'
                         onClick={() => navigate('/new-training')}>
-                            <span className="tooltip">פרופיל</span>
+                            <span className="tooltip">הוסף שיעור</span>
                             <img src="/images/plus-icon.png" alt="profile-icon" />
-                    </button> : null
-                }
+                    </button>
+                } */}
                 <button
                     className='button'
-                    onClick={() => navigate('/')}>
+                    onClick={() => navigate('/edit-profile')}>
                         <span className="tooltip">פרופיל</span>
                         <img src="/images/profile-icon.png" alt="profile-icon" />
                 </button>
