@@ -2,10 +2,14 @@ import { app } from "../../app.mjs";
 import { guard } from "../gurad.mjs";
 import { User } from "./users.model.mjs";
 
+
+//? הצגת כל המשתמשים
 app.get('/users', guard ,async (req, res) => {
     res.send(await User.find());
 });
 
+
+//? הצגת משתמש ספציפי
 app.get('/users/:id', async (req, res) => {
     try {
         const user = await User.findById(req.params.id)
@@ -22,6 +26,8 @@ app.get('/users/:id', async (req, res) => {
     }
 });
 
+
+//? עריכת משתמש ספציפי
 app.put('/users/:id', async (req, res) => {
     try {
         const {
@@ -76,12 +82,13 @@ app.put('/users/:id', async (req, res) => {
 });
 
 
+//? שינוי הרשאה למשתמש ספציפי
 app.patch('/users/:id', async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
         if (!user) return res.status(403).send("User not found");
     
-        user.isActive = !user.isActive;
+        user.isAdmin = !user.isAdmin;
         await user.save();
     
         res.send(user);
@@ -91,6 +98,8 @@ app.patch('/users/:id', async (req, res) => {
     }
 });
 
+
+//? מחיקת משתמש
 app.delete('/users/:id', async (req, res) => {
     try {
         await User.findByIdAndDelete(req.params.id);

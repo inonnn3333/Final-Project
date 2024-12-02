@@ -10,6 +10,7 @@ import Signup from './components/Signup.jsx';
 import { UserProvider } from './components/UserContext.js';
 import NewTraining from './components/NewTraining.jsx';
 import MyProfile from './components/gg.jsx';
+import EditTraining from './components/EditTraining.jsx';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/" element={<Home />} /> 
             <Route path="/my-favorites" element={<MyTrainings />} />
             <Route path="/new-training" element={<NewTraining />} />
+            <Route path="/edit-training/:id" element={<EditTraining />} />
             <Route path="/edit-profile" element={<MyProfile/>} />
             <Route path="/my-users" element={<Users />} />
           </Routes>

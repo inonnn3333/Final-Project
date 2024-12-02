@@ -11,8 +11,8 @@ const Header = () => {
 
     const shortenName = () => {
 
-        const firstInitial = user.firstName[0];
-        const lastInitial = user.lastName[0];
+        const firstInitial = (user.firstName[0]).toUpperCase();
+        const lastInitial = user.lastName[0].toUpperCase();
         
         setTheShortenName(`${firstInitial}${lastInitial}`);
     }

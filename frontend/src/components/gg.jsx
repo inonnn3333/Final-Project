@@ -1,29 +1,27 @@
 import React, { useContext, useState } from 'react';
 import { UserContext } from './UserContext';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 
 function MyProfile() {
-    const navigate = useNavigate();
-    const { user } = useContext(UserContext);
+    // const navigate = useNavigate();
+    const { user, } = useContext(UserContext);
+
 
 
     const [formData, setFormData] = useState({
-    trainingName: '',
-    trainingDetailes: '',
-    TrainingTime: {
-        date: '',
-        time: '',
-        length: ''
-    },
-    TrainingGuideDetails: {
-        first: '',
-        last: '',
+        name: {
+            first: '',
+            last: ''
+        },
         phone: '',
-        email: ''
-    }
-});
+        address: {
+            city: '',
+            street: '',
+            houseNumber: ''
+        }
+    });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -48,24 +46,19 @@ function MyProfile() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:1010/trainings', formData, {
+            const response = await axios.put(`http://localhost:1010/users/${user._id}`, formData, {
                     headers: {
                         authorization: localStorage.getItem('user')
                     }});
-            navigate('/') 
             return response;
         } catch (err) {
-            if (err.status === 403) {
-                console.error('אימון קיים');
-            } else {
-                console.error('An error occurred:', err.message);
-            }
-            
+            console.error('An error occurred:', err.message);            
         }
     };
+    
 
     return (
-        <div style={{marginBottom: "5em"}}>
+        <div style={{margin: "5em"}}>
             <h2>עריכת פרופיל</h2>
             <button onClick={()=> {console.log(user);}}>Click here</button>
             <form onSubmit={handleSubmit}>
@@ -73,8 +66,8 @@ function MyProfile() {
                     <label>שם פרטי</label>
                     <input
                         type="text"
-                        name="trainingName"
-                        value={user.firstName}
+                        name="name.first"
+                        // value={user.firstName}
                         onChange={handleChange}
                         required
                     />
@@ -83,8 +76,8 @@ function MyProfile() {
                     <label>שם משפחה:</label>
                     <input
                         type="text"
-                        name="trainingDetailes"
-                        value={user.lastName}
+                        name="name.last"
+                        // value={user.lastName}
                         onChange={handleChange}
                         required
                     />
@@ -93,8 +86,8 @@ function MyProfile() {
                     <label>מספר פלאפון:</label>
                     <input
                         type="text"
-                        name="TrainingTime.date"
-                        value={formData.TrainingTime.date}
+                        name="phone"
+                        // value={formData.TrainingTime.date}
                         onChange={handleChange}
                         required
                     />
@@ -103,8 +96,8 @@ function MyProfile() {
                     <label>כתובת אימייל:</label>
                     <input
                         type="text"
-                        name="TrainingTime.time"
-                        value={formData.TrainingTime.time}
+                        name="email"
+                        // value={formData.TrainingTime.time}
                         onChange={handleChange}
                         disabled
                     />
@@ -114,8 +107,8 @@ function MyProfile() {
                     <label>עיר:</label>
                     <input
                         type="text"
-                        name="TrainingTime.length"
-                        value={formData.TrainingTime.length}
+                        name="address.city"
+                        // value={formData.TrainingTime.length}
                         onChange={handleChange}
                         required
                     />
@@ -124,8 +117,8 @@ function MyProfile() {
                     <label>רחוב:</label>
                     <input
                         type="text"
-                        name="TrainingGuideDetails.first"
-                        value={formData.TrainingGuideDetails.first}
+                        name="address.street"
+                        // value={formData.TrainingGuideDetails.first}
                         onChange={handleChange}
                         required
                     />
@@ -134,8 +127,8 @@ function MyProfile() {
                     <label>מספר בית:</label>
                     <input
                         type="text"
-                        name="TrainingGuideDetails.last"
-                        value={formData.TrainingGuideDetails.last}
+                        name="address.houseNumber"
+                        // value={formData.TrainingGuideDetails.last}
                         onChange={handleChange}
                         required
                     />

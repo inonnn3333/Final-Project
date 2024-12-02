@@ -1,34 +1,67 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { UserContext } from './UserContext';
 import '../styles/home.css';
 import axios from 'axios';
 
 const MyFavoiretes = () => {
     const [data, setData] = useState([]);
+    const { user } = useContext(UserContext);
     const [bookingStatus, setBookingStatus] = useState({});
 
-    const handleBooking = (index) => {
-        setBookingStatus((prevStatus) => ({
-        ...prevStatus,
-        [index]: !prevStatus[index] // הופך את המצב של כל שיעור בין true ל-false
-        }));
-    };
+    const handleBooking = async (trainingId) => {
+    try {
+        const userId = user._id;
+
+        const response = await axios.patch(
+            `http://localhost:1010/trainings/${trainingId}`,
+            { userId },
+            {
+                headers: {
+                    authorization: localStorage.getItem('user'),
+                },
+            }
+        );
+
+        console.log(response.data.message);
+
+        const updatedTraining = response.data;
+
+        // אם המשתמש כבר לא משתתף, מסירים את השיעור מהרשימה
+        if (!updatedTraining.participants.includes(userId)) {
+            setData((prevData) =>
+                prevData.filter((item) => item._id !== trainingId)
+            );
+        } else {
+            // אחרת, מעדכנים את המידע של השיעור ברשימה
+            setData((prevData) =>
+                prevData.map((item) =>
+                    item._id === updatedTraining._id ? updatedTraining : item
+                )
+            );
+        }
+    } catch (error) {
+        console.error('Error updating booking:', error.response?.data || error.message);
+    }
+};
+
+
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:1010/trainings/my-trainings', {
+                const response = await axios.get(`http://localhost:1010/trainings/my-trainings/${user._id}`, {
                     headers: {
-                        authorization: localStorage.getItem('user')
-                    }}
-                );
-
+                        authorization: localStorage.getItem('user'),
+                    },
+                });
                 setData(response.data);
             } catch (err) {
                 console.log(err);
             }
-        }
+        };
         fetchData();
-    },[]);
+    }, [user]);
+
 
 
     return (
@@ -36,24 +69,26 @@ const MyFavoiretes = () => {
             <h1>שיעורים שהזמנתי</h1>
             <div>
                 {
-                    data ? <p>אין שיעורים נבחרים</p> :
-                    data.map((item, index) => (
-                        <div key={index} className="classCard">
-                            <h2>{item.trainingName}</h2>
-                            <p><strong>מורה:</strong> {item.TrainingGuideDetails.first + item.TrainingGuideDetails.last}</p>
-                            <p><strong>תאריך:</strong> {item.time.date}</p>
-                            <p><strong>שעה:</strong> {item.time.time}</p>
-                            <p><strong>משתתפים:</strong> {item.participants.join}</p>
-                            <div>
-                                <button onClick={() => handleBooking(index)}>
-                                    {bookingStatus[index] ? 'בטל תור' : 'תפוס תור'}
-                                </button>
+                    data.length === 0 ? ( // בדיקה אם אין שיעורים
+                        <p>אין שיעורים נבחרים</p>
+                    ) : (
+                        data.map((item, index) => (
+                            <div key={index} className="classCard">
+                                <h2>{item.trainingName}</h2>
+                                <p><strong>מורה:</strong> {item.TrainingGuideDetails.first + ' ' + item.TrainingGuideDetails.last}</p>
+                                <p><strong>תאריך:</strong> {item.time.date}</p>
+                                <p><strong>שעה:</strong> {item.time.time}</p>
+                                <p><strong>מספר משתתפים:</strong> {item.participants.length}</p>
+                                <div>
+                                    <button onClick={() => handleBooking(item._id)} className="button-home">
+                                        {item.participants.includes(user._id) ? 'בטל תור' : 'תפוס תור'}
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                ))
+                        ))
+                    )
                 }
             </div>
-
         </div>
     );
 };

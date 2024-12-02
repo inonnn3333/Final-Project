@@ -25,6 +25,33 @@ const Users = () => {
     };
 
 
+    const handleAdmin = async (isAdmin, userId) => {
+    const confirmChange = isAdmin
+        ? window.confirm("האם ברצונך להפוך את המשתמש ללקוח?")
+        : window.confirm("האם ברצונך להפוך את המשתמש למנהל?");
+    
+    if (confirmChange) {
+        try {
+            const response = await axios.patch(`http://localhost:1010/users/${userId}`, {
+                headers: {
+                    authorization: localStorage.getItem('user'),
+                },
+            });
+
+            const updatedUser = response.data; // קבלת המשתמש המעודכן מהשרת
+
+            setData((prevData) =>
+                prevData.map((user) =>
+                    user._id === updatedUser._id ? updatedUser : user
+                )
+            );
+        } catch (error) {
+            console.error("Error deleting user:", error);
+        }
+    }
+};
+
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -64,7 +91,7 @@ const Users = () => {
                         <th>רחוב</th>
                         <th>מס' בית</th>
                         <th>תאריך יצירת חשבון</th>
-                        <th>פעיל</th>
+                        <th>לקוח/מנהל</th>
                         <th>מחק</th>
                     </tr>
                 </thead>
@@ -79,14 +106,18 @@ const Users = () => {
                             <td>{user.address.street}</td>
                             <td>{user.address.houseNumber}</td>
                             <td>{user.createAt}</td>
-                            <td>{user.isActive ? "כן" : "לא"}</td>
+                            <td>
+                                <button onClick={() => handleAdmin(user.isAdmin, user._id)}>
+                                    {user.isAdmin ? <p>מנהל</p> : <p>לקוח</p>}
+                                </button>
+                            </td>
                             <td>
                                 <button onClick={() => handleDelete(user._id)}>
-                                        מחק משתמש
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
+                                    <img src="/images/trash-icon.png" alt="trash-icon" className='icons' />
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
                     </tbody>
                 </table>
             </div>

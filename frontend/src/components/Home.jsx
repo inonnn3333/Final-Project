@@ -1,36 +1,100 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { UserContext } from './UserContext';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+
 import '../styles/home.css';
 
 const Home = () => {
+    const navigate = useNavigate();
+
     const [data, setData] = useState([]);
     const [bookingStatus, setBookingStatus] = useState({});
-    const [searchQuery, setSearchQuery] = useState(''); // State לשורת החיפוש
+    const [searchQuery, setSearchQuery] = useState('');
+    const { user } = useContext(UserContext);
 
-    const handleBooking = (index) => {
-        setBookingStatus((prevStatus) => ({
-            ...prevStatus,
-            [index]: !prevStatus[index] // הופך את המצב של כל שיעור בין true ל-false
-        }));
+    const handleEditClick = (lessonId) => {
+        navigate(`/edit-training/${lessonId}`)
     };
+
+
+    const handleBooking = async (index, trainingId) => {
+        try {
+            const userId = user._id; // ה-ID של המשתמש, כנראה נלקח מ-context או state
+
+            const response = await axios.patch(
+                `http://localhost:1010/trainings/${trainingId}`,
+                { userId }, // הגוף של הבקשה
+                {
+                    headers: {
+                        authorization: localStorage.getItem('user'), // ה-token מה-localStorage
+                    },
+                }
+            );
+
+            console.log(response.data.message); // הודעת הצלחה/ביטול
+
+            setBookingStatus((prevStatus) => ({
+                ...prevStatus,
+                [index]: !prevStatus[index], // עדכון המצב לפי הפעולה
+            }));
+        } catch (error) {
+            console.error('Error updating booking:', error.response?.data || error.message);
+        }
+    };
+
+    const handleDelete = async (itemId) => {
+        const confirmDelete = window.confirm("האם ברצונך למחוק את האימון?");
+        if (confirmDelete) {
+            try {
+                await axios.delete(`http://localhost:1010/trainings/${itemId}`, {
+                    headers: {
+                        authorization: localStorage.getItem('user'),
+                    },
+                });
+                setData((prevData) => prevData.filter((user) => user._id !== itemId));
+            } catch (error) {
+                console.error("Error deleting item:", error);
+            }
+        }
+    };
+
+
+
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:1010/trainings');
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                const response = await axios.get('http://localhost:1010/trainings');
+                if (response.status !== 200) {
+                    throw new Error('Failed to fetch data');
                 }
-                const result = await response.json();
-                setData(result);
+
+                const trainings = response.data;
+
+                // עדכון הנתונים
+                setData(trainings);
+
+                // יצירת מצב ראשוני לסטטוס הכפתורים
+                const initialStatus = {};
+                trainings.forEach((training, index) => {
+                    // בדיקה אם המשתמש כבר ברשימת המשתתפים
+                    const isRegistered = training.participants.includes(user._id);
+                    initialStatus[index] = isRegistered; // true אם המשתמש רשום, אחרת false
+                });
+
+                setBookingStatus(initialStatus); // עדכון הסטטוס של כל הכפתורים
             } catch (error) {
-                console.error(error); // טיפול בשגיאות
+                console.error('Error fetching data:', error);
             }
         };
-        fetchData();
-    }, []);
 
-    // סינון הנתונים לפי שורת החיפוש
-    const filteredData = data.filter((item) =>
+        fetchData();
+}, [user]);
+
+
+        const filteredData = data.filter((item) =>
         item.trainingName.toLowerCase().includes(searchQuery.toLowerCase()) ||
         `${item.TrainingGuideDetails.first} ${item.TrainingGuideDetails.last}`.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -50,28 +114,41 @@ const Home = () => {
 
             <div className='class-card-container'>
                 {filteredData.map((item, index) => (
-                    <div key={index} className="class-card">
+                <div key={index} className="class-card">
+                    <div>
+                        <h2>{item.trainingName}</h2>
+                        <p>{`${item.TrainingGuideDetails.first} ${item.TrainingGuideDetails.last}`}</p>
+                    </div>
+                    <div>
+                        <p>
+                            <img src="/images/date-icon.png" alt="date-icon" className='icons' />
+                            {`  ${item.time.time}  |  ${item.time.date}`}
+                        </p>
+                        <p>
+                            <img src="/images/clock-icon.png" alt="clock-icon" className='icons' />
+                            {`  ${item.time.length}`}
+                        </p>
+                        <p>
+                            <img src="/images/peoples-icon.png" alt="profile-icon" className='icons' />
+                            {`  ${item.participants.length}`}
+                        </p>
+                    </div>
+                    {user?.isAdmin === false && (
                         <div>
-                            <h2>{item.trainingName}</h2>
-                        </div>
-                        <div>
-                            <p><strong>מורה:</strong> {`${item.TrainingGuideDetails.first} ${item.TrainingGuideDetails.last}`}</p>
-                            <p><strong>מתי?</strong> {item.time.time}</p>
-                            <p>
-                                <img src="/images/clock-icon.png" alt="profile-icon" className='icons' />
-                                {item.time.time}
-                            </p>
-                            <p>
-                                <img src="/images/peoples-icon.png" alt="profile-icon" className='icons' />
-                                {item.participants.join}
-                            </p>
-                        </div>
-                        <div>
-                            <button onClick={() => handleBooking(index)} className='button-home'>
+                            <button onClick={() => handleBooking(index, item._id)} className="button-home">
                                 {bookingStatus[index] ? 'בטל תור' : 'תפוס תור'}
                             </button>
                         </div>
+                    )}
+                    {user?.isAdmin && (
+                    <div>
+                        <button onClick={() => handleDelete(item._id)} className="button-home">
+                            מחיקת אימון
+                        </button>
+                        <button onClick={() => handleEditClick(item._id)}>עריכה</button>
                     </div>
+                    )}
+                </div>
                 ))}
             </div>
         </div>

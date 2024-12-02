@@ -9,6 +9,8 @@ const Footer = () => {
     const navigate = useNavigate();
     const { user } = useContext(UserContext);
 
+    if (!user) return null;
+
     return (
         <div className='footer-container'>
             <div className='btnDiv'>
@@ -18,33 +20,39 @@ const Footer = () => {
                         <span className="tooltip">ראשי</span>
                         <img src="/images/home-icon.png" alt="profile-icon" />
                 </button>
-                <button
-                    className='button'
-                    onClick={() => navigate('/my-favorites')}>
-                        <span className="tooltip">בחירותיי</span>
-                        <img src="/images/heart-icon.png" alt="profile-icon" />
-                </button>
-                {/* {user.isAdmin && 
+                {user?.isAdmin === false && (
+                    <button
+                        className='button'
+                        onClick={() => navigate('/my-favorites')}>
+                            <span className="tooltip">בחירותיי</span>
+                            <img src="/images/heart-icon.png" alt="profile-icon" />
+                    </button>
+                )}
+                {user?.isAdmin && (
                     <button
                         className='button' id='plus-button'
                         onClick={() => navigate('/new-training')}>
                             <span className="tooltip">הוסף שיעור</span>
                             <img src="/images/plus-icon.png" alt="profile-icon" />
                     </button>
-                } */}
-                <button
-                    className='button'
-                    onClick={() => navigate('/edit-profile')}>
-                        <span className="tooltip">פרופיל</span>
-                        <img src="/images/profile-icon.png" alt="profile-icon" />
-                </button>
 
+                )}
+                {user?.isAdmin === false && (
+                    <button
+                        className='button'
+                        onClick={() => navigate('/edit-profile')}>
+                            <span className="tooltip">פרופיל</span>
+                            <img src="/images/profile-icon.png" alt="profile-icon" />
+                    </button>
+                )}
+                {user?.isAdmin && (
                 <button
                     className='button'
                     onClick={() => navigate('/my-users')}>
                         <span className="tooltip">משתמשים</span>
                         <img src="/images/users-list-icon.png" alt="profile-icon" />
-                    </button>
+                </button>
+                )}
 
                 {/* <button className='button'>משתתפים בשיעורים</button> */}
             </div>
