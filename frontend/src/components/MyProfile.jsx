@@ -1,36 +1,53 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
+import { UserContext } from './UserContext';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { UserSignup } from '../validations/userValidation'; // ייבוא הסכמה
+import { EditUser } from '../validations/userValidation'; // ייבוא סכמת הוולידציה
 
-function Signup() {
-    const navigate = useNavigate();
+function MyProfile() {
+    const { user } = useContext(UserContext);
 
+    // שימוש ב-react-hook-form עם joiResolver
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm({
-        resolver: joiResolver(UserSignup), // שימוש בסכמה המיובאת
+        resolver: joiResolver(EditUser), // שימוש בסכמת EditUser
+        defaultValues: {
+            name: {
+                first: user?.name?.first || '',
+                last: user?.name?.last || '',
+            },
+            phone: user?.phone || '',
+            address: {
+                city: user?.address?.city || '',
+                street: user?.address?.street || '',
+                houseNumber: user?.address?.houseNumber || '',
+            },
+        },
     });
 
     const onSubmit = async (data) => {
         try {
-            await axios.post('http://localhost:1010/users', data);
-            navigate('/login');
+            const response = await axios.put(`http://localhost:1010/users/${user._id}`, data, {
+                headers: {
+                    authorization: localStorage.getItem('user'),
+                },
+            });
+            console.log('Profile updated successfully:', response.data);
         } catch (err) {
-            console.error('Error during signup:', err.response?.data?.message || err.message);
+            console.error('An error occurred:', err.message);
         }
     };
 
     return (
-        <div style={{ marginBottom: "5em", width: "25em", paddingRight: "2em" }}>
-            <h2>רישום</h2>
+        <div style={{ margin: '5em' }}>
+            <h2>עריכת פרופיל</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
-                    <label>שם פרטי:</label>
+                    <label>שם פרטי</label>
                     <input type="text" {...register('name.first')} />
                     {errors.name?.first && <p>{errors.name.first.message}</p>}
                 </div>
@@ -40,19 +57,9 @@ function Signup() {
                     {errors.name?.last && <p>{errors.name.last.message}</p>}
                 </div>
                 <div>
-                    <label>פלאפון:</label>
-                    <input type="tel" {...register('phone')} />
+                    <label>מספר פלאפון:</label>
+                    <input type="text" {...register('phone')} />
                     {errors.phone && <p>{errors.phone.message}</p>}
-                </div>
-                <div>
-                    <label>אימייל:</label>
-                    <input type="email" {...register('email')} />
-                    {errors.email && <p>{errors.email.message}</p>}
-                </div>
-                <div>
-                    <label>סיסמא:</label>
-                    <input type="password" {...register('password')} />
-                    {errors.password && <p>{errors.password.message}</p>}
                 </div>
                 <div>
                     <label>עיר:</label>
@@ -65,15 +72,14 @@ function Signup() {
                     {errors.address?.street && <p>{errors.address.street.message}</p>}
                 </div>
                 <div>
-                    <label>מס' בית:</label>
+                    <label>מספר בית:</label>
                     <input type="text" {...register('address.houseNumber')} />
                     {errors.address?.houseNumber && <p>{errors.address.houseNumber.message}</p>}
                 </div>
-                <button type="submit">הירשם</button>
+                <button type="submit">שמור שינויים:</button>
             </form>
-            <button onClick={() => navigate('/login')}>חזרה להתחברות</button>
         </div>
     );
 }
 
-export default Signup;
+export default MyProfile;

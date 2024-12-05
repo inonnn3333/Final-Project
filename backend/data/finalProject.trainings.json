@@ -1,0 +1,385 @@
+[{
+  "_id": {
+    "$oid": "6744f837ebd7fffa53ed3035"
+  },
+  "trainingName": "אימון יוגה למתחילים",
+  "trainingDetailes": "אימון להיכרות עם יסודות היוגה",
+  "trainingGuideDetails": {
+    "first": "נועה",
+    "last": "לוי",
+    "phone": 502345678,
+    "_id": {
+      "$oid": "674db10901c1f55d64299698"
+    }
+  },
+  "createAt": "2024-11-26",
+  "participants": [
+    {
+      "$oid": "674da3f3c02bf6cb3ef9f3c3"
+    }
+  ],
+  "isCanceled": true,
+  "user_id": null,
+  "__v": 65,
+  "trainingTime": {
+    "date": "2024-11-07",
+    "time": "18:00",
+    "length": 45,
+    "_id": {
+      "$oid": "674db10901c1f55d64299697"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "6744f837ebd7fffa53ed3036"
+  },
+  "trainingName": "אימון משקולות מתקדמים",
+  "trainingDetailes": "אימון לפיתוח מסת שריר וחיזוק",
+  "trainingGuideDetails": {
+    "first": "דוד",
+    "last": "בן דוד",
+    "phone": 503456789,
+    "_id": {
+      "$oid": "674daa9301c1f55d64299596"
+    }
+  },
+  "createAt": "2024-11-26",
+  "participants": [
+    {
+      "$oid": "674e413ef02a01e3a665cd4c"
+    }
+  ],
+  "isCanceled": false,
+  "user_id": null,
+  "__v": 33,
+  "trainingTime": {
+    "date": "2024-11-12",
+    "time": "20:00",
+    "length": 60,
+    "_id": {
+      "$oid": "674daa9301c1f55d64299595"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "6744f837ebd7fffa53ed3037"
+  },
+  "trainingName": "אימון אירובי אינטנסיבי",
+  "trainingDetailes": "אימון אירובי לשריפת קלוריות",
+  "trainingGuideDetails": {
+    "first": "מאיה",
+    "last": "רוזן",
+    "phone": 504567890,
+    "_id": {
+      "$oid": "674dac4001c1f55d64299676"
+    }
+  },
+  "createAt": "2024-11-26",
+  "participants": [],
+  "isCanceled": false,
+  "user_id": null,
+  "__v": 10,
+  "trainingTime": {
+    "date": "2024-11-15",
+    "time": "07:00",
+    "length": 30,
+    "_id": {
+      "$oid": "674dac4001c1f55d64299675"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "6744f837ebd7fffa53ed3038"
+  },
+  "trainingName": "אימון ריצה בקבוצה",
+  "trainingDetailes": "אימון קבוצתי לריצה משותפת",
+  "trainingGuideDetails": {
+    "first": "יוסי",
+    "last": "אשכנזי",
+    "phone": 505678901,
+    "_id": {
+      "$oid": "674daacb01c1f55d642995ea"
+    }
+  },
+  "createAt": "2024-11-26",
+  "participants": [],
+  "isCanceled": true,
+  "user_id": null,
+  "__v": 3,
+  "trainingTime": {
+    "date": "2024-11-20",
+    "time": "19:00",
+    "length": 60,
+    "_id": {
+      "$oid": "674daacb01c1f55d642995e9"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "674508000f795a675616728f"
+  },
+  "trainingName": "אהלן",
+  "trainingDetailes": "אימון של תותחים",
+  "trainingGuideDetails": {
+    "first": "אוראל",
+    "last": "עומיסי",
+    "phone": 525473838,
+    "_id": {
+      "$oid": "674508000f795a6756167291"
+    }
+  },
+  "createAt": "2024-11-26 01:28",
+  "participants": [
+    {
+      "$oid": "674da3f3c02bf6cb3ef9f3c3"
+    }
+  ],
+  "user_id": {
+    "$oid": "673678df1ac7ae687146d4c9"
+  },
+  "__v": 14,
+  "trainingTime": {
+    "date": "2025-01-06",
+    "time": "12:00",
+    "length": 50,
+    "_id": {
+      "$oid": "674508000f795a6756167290"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "67465e301d2074bc0043ae0f"
+  },
+  "trainingName": "אימון כוח",
+  "trainingDetailes": "כל השרירים שלך ביד אחת",
+  "trainingGuideDetails": {
+    "first": "אורן",
+    "last": "סימן טוב",
+    "phone": 554345674,
+    "_id": {
+      "$oid": "67465e301d2074bc0043ae11"
+    }
+  },
+  "createAt": "2024-11-27 01:48",
+  "participants": [],
+  "user_id": {
+    "$oid": "673678df1ac7ae687146d4c9"
+  },
+  "__v": 2,
+  "trainingTime": {
+    "date": "2025-01-10",
+    "time": "10:00",
+    "length": 60,
+    "_id": {
+      "$oid": "67465e301d2074bc0043ae10"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "6746650f1d2074bc0043ae13"
+  },
+  "trainingName": "ריצה",
+  "trainingDetailes": "להיות אצן",
+  "trainingGuideDetails": {
+    "first": "אורן",
+    "last": "קושתאי",
+    "phone": 564786543,
+    "_id": {
+      "$oid": "6746650f1d2074bc0043ae15"
+    }
+  },
+  "createAt": "2024-11-27 02:17",
+  "participants": [],
+  "user_id": {
+    "$oid": "673678df1ac7ae687146d4c9"
+  },
+  "__v": 2,
+  "trainingTime": {
+    "date": "2025-01-02",
+    "time": "12:00",
+    "length": 45,
+    "_id": {
+      "$oid": "6746650f1d2074bc0043ae14"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "67477168a9e069f0b320aab6"
+  },
+  "trainingName": "מנסה",
+  "trainingDetailes": "את מזלי",
+  "trainingGuideDetails": {
+    "first": "אורן",
+    "last": "אזולאי",
+    "phone": 65574834,
+    "_id": {
+      "$oid": "674e29ce43a03bd014f751db"
+    }
+  },
+  "createAt": "2024-11-27 21:22",
+  "participants": [],
+  "user_id": {
+    "$oid": "673678df1ac7ae687146d4c9"
+  },
+  "__v": 2,
+  "trainingTime": {
+    "date": "20-01-2025",
+    "time": "09:00",
+    "length": 60,
+    "_id": {
+      "$oid": "674e29ce43a03bd014f751da"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "67502ddbd9f0fa192227bd8f"
+  },
+  "trainingName": "ריצה",
+  "trainingDetailes": "אל האופק",
+  "trainingGuideDetails": {
+    "first": "רפאל",
+    "last": "חיים",
+    "phone": "0545689095",
+    "_id": {
+      "$oid": "67502ddbd9f0fa192227bd91"
+    }
+  },
+  "createAt": "2024-12-04 12:24",
+  "participants": [],
+  "user_id": {
+    "$oid": "67312713efc9ddad05785406"
+  },
+  "__v": 0,
+  "trainingTime": {
+    "date": "2025-01-25",
+    "time": "15:21",
+    "length": 45,
+    "_id": {
+      "$oid": "67502ddbd9f0fa192227bd90"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "67502e1ad9f0fa192227bd9b"
+  },
+  "trainingName": "סטאפבטה",
+  "trainingDetailes": "להיות אצן",
+  "trainingGuideDetails": {
+    "first": "שלום",
+    "last": "פנחס",
+    "phone": "0542177993",
+    "_id": {
+      "$oid": "67502e1ad9f0fa192227bd9d"
+    }
+  },
+  "createAt": "2024-12-04 12:25",
+  "participants": [],
+  "user_id": {
+    "$oid": "67312713efc9ddad05785406"
+  },
+  "__v": 0,
+  "trainingTime": {
+    "date": "2024-12-03",
+    "time": "15:28",
+    "length": 45,
+    "_id": {
+      "$oid": "67502e1ad9f0fa192227bd9c"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "67503b7f98c9a1fad270ea4f"
+  },
+  "trainingName": "חדשחדש",
+  "trainingDetailes": "להיות אצן",
+  "trainingGuideDetails": {
+    "first": "סבבי",
+    "last": "בבי",
+    "phone": "0542177993",
+    "_id": {
+      "$oid": "67503b7f98c9a1fad270ea51"
+    }
+  },
+  "createAt": "2024-12-04 13:22",
+  "participants": [],
+  "user_id": {
+    "$oid": "67312713efc9ddad05785406"
+  },
+  "__v": 0,
+  "trainingTime": {
+    "date": "2024-12-04",
+    "time": "15:30",
+    "length": 45,
+    "_id": {
+      "$oid": "67503b7f98c9a1fad270ea50"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "675041f0c8955dc647d95916"
+  },
+  "trainingName": "ריצה",
+  "trainingDetailes": "דייקן",
+  "trainingGuideDetails": {
+    "first": "חיים",
+    "last": "טולדנו",
+    "phone": "0542177993",
+    "_id": {
+      "$oid": "675041f0c8955dc647d95918"
+    }
+  },
+  "createAt": "2024-12-04 13:50",
+  "participants": [],
+  "user_id": {
+    "$oid": "67312713efc9ddad05785406"
+  },
+  "__v": 0,
+  "trainingTime": {
+    "date": "2024-12-26",
+    "time": "16:49",
+    "length": 40,
+    "_id": {
+      "$oid": "675041f0c8955dc647d95917"
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "67505c02ca25cac7ca1adb37"
+  },
+  "trainingName": "גכככ",
+  "trainingDetailes": "גכגכגכגכגכ",
+  "trainingGuideDetails": {
+    "first": "גכגכגכ",
+    "last": "גכגכ",
+    "phone": "0542177993",
+    "_id": {
+      "$oid": "67505c02ca25cac7ca1adb39"
+    }
+  },
+  "createAt": "2024-12-04 15:41",
+  "participants": [],
+  "user_id": {
+    "$oid": "67312713efc9ddad05785406"
+  },
+  "__v": 0,
+  "trainingTime": {
+    "date": "2024-12-11",
+    "time": "17:40",
+    "length": 40,
+    "_id": {
+      "$oid": "67505c02ca25cac7ca1adb38"
+    }
+  }
+}]

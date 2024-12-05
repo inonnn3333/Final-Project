@@ -1,57 +1,58 @@
-import React, { useState } from 'react';
-// import { UserContext } from './UserContext';
+import React, { useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import { joiResolver } from '@hookform/resolvers/joi';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import { UserContext } from './UserContext';
+import { trainingSchema } from '../validations/trainingValidation'; // ייבוא סכמת הוולידציה
+import moment from 'moment'; // ייבוא moment
 
 function NewTraining() {
-    // const { login } = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const navigate = useNavigate();
 
-    const [formData, setFormData] = useState({
-    trainingName: '',
-    trainingDetailes: '',
-    TrainingTime: {
-        date: '',
-        time: '',
-        length: ''
-    },
-    TrainingGuideDetails: {
-        first: '',
-        last: '',
-        phone: '',
-        email: ''
-    }
-});
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-
-        if (name.includes('.')) {
-        const [mainField, subField] = name.split('.');
-        setFormData({
-            ...formData,
-            [mainField]: {
-            ...formData[mainField],
-            [subField]: value,
+    // שימוש ב-react-hook-form עם joiResolver
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        resolver: joiResolver(trainingSchema), // שימוש בסכמת trainingSchema
+        defaultValues: {
+            trainingName: '',
+            trainingDetailes: '',
+            trainingTime: {
+                date: '',
+                time: '',
+                length: '',
             },
-        });
-        } else {
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
-        }
-    };
+            trainingGuideDetails: {
+                first: '',
+                last: '',
+                phone: '',
+                email: '',
+            },
+        },
+    });
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const onSubmit = async (data) => {
+        // המרת השעה באמצעות moment
+        const formattedTime = moment(data.trainingTime.time, 'HH:mm').format('YYYY-MM-DD');
+        const formattedData = {
+            ...data,
+            trainingTime: {
+                ...data.trainingTime,
+                time: formattedTime,
+            },
+        };
+
         try {
-            const response = await axios.post('http://localhost:1010/trainings', formData, {
-                    headers: {
-                        authorization: localStorage.getItem('user')
-                    }});
-            navigate('/') 
+            const response = await axios.post('http://localhost:1010/trainings', formattedData, {
+                headers: {
+                    authorization: localStorage.getItem('user'),
+                },
+            });
+            navigate('/');
             return response;
         } catch (err) {
             if (err.status === 403) {
@@ -59,107 +60,95 @@ function NewTraining() {
             } else {
                 console.error('An error occurred:', err.message);
             }
-            
         }
     };
 
     return (
-        <div style={{marginBottom: "5em"}}>
-        <h2>הוספת שיעור חדש</h2>
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>שם השיעור:</label>
-                <input
-                    type="text"
-                    name="trainingName"
-                    value={formData.trainingName}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>כמה מילים על השיעור</label>
-                <input
-                    type="text"
-                    name="trainingDetailes"
-                    value={formData.trainingDetailes}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>יום:</label>
-                <input
-                    type="text"
-                    name="TrainingTime.date"
-                    value={formData.TrainingTime.date}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>שעה:</label>
-                <input
-                    type="text"
-                    name="TrainingTime.time"
-                    value={formData.TrainingTime.time}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>אורך השיעור:</label>
-                <input
-                    type="text"
-                    name="TrainingTime.length"
-                    value={formData.TrainingTime.length}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <h3>פרטי המאמנ/ת</h3>
-            <div>
-                <label>שם פרטי:</label>
-                <input
-                    type="text"
-                    name="TrainingGuideDetails.first"
-                    value={formData.TrainingGuideDetails.first}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>שם משפחה:</label>
-                <input
-                    type="text"
-                    name="TrainingGuideDetails.last"
-                    value={formData.TrainingGuideDetails.last}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>מספר פלאפון:</label>
-                <input
-                    type="text"
-                    name="TrainingGuideDetails.phone"
-                    value={formData.TrainingGuideDetails.phone}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>אימייל:</label>
-                <input
-                    type="text"
-                    name="TrainingGuideDetails.email"
-                    value={formData.TrainingGuideDetails.email}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <button type="submit">הוסף שיעור</button>
-        </form>
+        <div style={{ marginBottom: '5em', width: '25em', paddingRight: '2em' }}>
+            <h2>הוספת שיעור חדש</h2>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div>
+                    <label>שם השיעור:</label>
+                    <input
+                        type="text"
+                        {...register('trainingName')}
+                    />
+                    {errors.trainingName && <p>{errors.trainingName.message}</p>}
+                </div>
+                <div>
+                    <label>כמה מילים על השיעור</label>
+                    <input
+                        type="text"
+                        {...register('trainingDetailes')}
+                    />
+                    {errors.trainingDetailes && <p>{errors.trainingDetailes.message}</p>}
+                </div>
+                <div>
+                    <label>תאריך:</label>
+                    <input
+                        type="date"
+                        {...register('trainingTime.date')}
+                    />
+                    {errors.trainingTime?.date && <p>{errors.trainingTime.date.message}</p>}
+                </div>
+                <div>
+                    <label>שעה:</label>
+                    <input
+                        type="time"
+                        {...register('trainingTime.time')}
+                    />
+                    {errors.trainingTime?.time && <p>{errors.trainingTime.time.message}</p>}
+                </div>
+                <div>
+                    <label>אורך השיעור:</label>
+                    <select
+                        {...register('trainingTime.length')}
+                    >
+                        <option value="" disabled>בחר זמן</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="45">45</option>
+                        <option value="50">50</option>
+                        <option value="55">55</option>
+                        <option value="60">60</option>
+                    </select><span>{` דקות`}</span>
+                    {errors.trainingTime?.length && <p>{errors.trainingTime.length.message}</p>}
+                </div>
+                <h3>פרטי המאמנ/ת</h3>
+                <div>
+                    <label>שם פרטי:</label>
+                    <input
+                        type="text"
+                        {...register('trainingGuideDetails.first')}
+                    />
+                    {errors.trainingGuideDetails?.first && <p>{errors.trainingGuideDetails.first.message}</p>}
+                </div>
+                <div>
+                    <label>שם משפחה:</label>
+                    <input
+                        type="text"
+                        {...register('trainingGuideDetails.last')}
+                    />
+                    {errors.trainingGuideDetails?.last && <p>{errors.trainingGuideDetails.last.message}</p>}
+                </div>
+                <div>
+                    <label>מספר פלאפון:</label>
+                    <input
+                        type="tel"
+                        {...register('trainingGuideDetails.phone')}
+                    />
+                    {errors.trainingGuideDetails?.phone && <p>{errors.trainingGuideDetails.phone.message}</p>}
+                </div>
+                <div>
+                    <label>אימייל:</label>
+                    <input
+                        type="email"
+                        {...register('trainingGuideDetails.email')}
+                    />
+                    {errors.trainingGuideDetails?.email && <p>{errors.trainingGuideDetails.email.message}</p>}
+                </div>
+                <button type="submit">הוסף שיעור</button>
+            </form>
         </div>
     );
 }

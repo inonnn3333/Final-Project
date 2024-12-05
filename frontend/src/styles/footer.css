@@ -30,6 +30,18 @@
     text-align: center;
 }
 
+.button.active {
+    background-color: #FF6D4C;
+    /* צבע הרקע של הכפתור הפעיל */
+    color: black;
+    /* צבע הטקסט או האייקון בכפתור הפעיל */
+}
+
+.button.active img {
+    filter: none;
+    /* שומר על צבע האייקון בכפתור הפעיל */
+}
+
 #plus-button {
     background-color: #FF6D4C;
     width: 5em;

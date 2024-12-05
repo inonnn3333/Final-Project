@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { UserContext } from './UserContext';
 import '../styles/style.css'; // מייבא את קובץ ה-CSS
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const { login, toggleTheme } = useContext(UserContext);
+    const { login, user } = useContext(UserContext);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -31,6 +31,8 @@ const Login = () => {
             setError('Login failed. Please check your credentials.');
         }
     };
+
+    if (user) return navigate('/')
 
     return (
         <div className="login-container">

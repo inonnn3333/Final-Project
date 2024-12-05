@@ -70,15 +70,15 @@ const MyFavoiretes = () => {
             <div>
                 {
                     data.length === 0 ? ( // בדיקה אם אין שיעורים
-                        <p>אין שיעורים נבחרים</p>
+                        <p>אין שיעורים שהוזמנו</p>
                     ) : (
                         data.map((item, index) => (
                             <div key={index} className="classCard">
                                 <h2>{item.trainingName}</h2>
-                                <p><strong>מורה:</strong> {item.TrainingGuideDetails.first + ' ' + item.TrainingGuideDetails.last}</p>
-                                <p><strong>תאריך:</strong> {item.time.date}</p>
-                                <p><strong>שעה:</strong> {item.time.time}</p>
-                                <p><strong>מספר משתתפים:</strong> {item.participants.length}</p>
+                                <p><strong>מורה:</strong> {item.trainingGuideDetails.first + ' ' + item.trainingGuideDetails.last}</p>
+                                <p><strong>תאריך:</strong> {item.trainingTime.date}</p>
+                                <p><strong>שעה:</strong> {item.trainingTime.time}</p>
+                                <p><strong>מספר משתתפים:</strong> {item.trainingTime.length}</p>
                                 <div>
                                     <button onClick={() => handleBooking(item._id)} className="button-home">
                                         {item.participants.includes(user._id) ? 'בטל תור' : 'תפוס תור'}

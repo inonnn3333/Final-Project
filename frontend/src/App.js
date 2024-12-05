@@ -9,7 +9,7 @@ import Users from './components/Users.jsx';
 import Signup from './components/Signup.jsx';
 import { UserProvider } from './components/UserContext.js';
 import NewTraining from './components/NewTraining.jsx';
-import MyProfile from './components/gg.jsx';
+import MyProfile from './components/MyProfile.jsx';
 import EditTraining from './components/EditTraining.jsx';
 
 function App() {

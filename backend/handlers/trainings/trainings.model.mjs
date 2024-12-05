@@ -3,25 +3,22 @@ import mongoose ,{ Schema } from "mongoose";
 const TrainingGuideDetails = new Schema({
     first: String,
     last: String,
-    phone: Number,
-    email: {
-        type: String,
-        unique: true,
-    }
+    phone: String,
+    email: String
 });
 
 const TrainingTime = new Schema({
     date: String,
     time: String,
-    length: String,
+    length: Number,
 });
 
 
 const schema = new Schema({
     trainingName: String,
     trainingDetailes: String,
-    time: TrainingTime,
-    TrainingGuideDetails: TrainingGuideDetails,
+    trainingTime: TrainingTime,
+    trainingGuideDetails: TrainingGuideDetails,
     createAt: String,
     participants: {
         type: [Schema.Types.ObjectId],

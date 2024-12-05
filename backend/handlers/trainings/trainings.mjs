@@ -3,11 +3,11 @@ import { getUser } from "../gurad.mjs";
 import { Training } from "./trainings.model.mjs";
 import { guard } from "../gurad.mjs";
 import moment from 'moment';
-import jwt from "jsonwebtoken";
+import { trainingSchema } from "./trainings.joi.mjs";
+// import jwt from "jsonwebtoken";
 
 
 //?  כל האימונים 
-
 app.get('/trainings', async (req, res) => {
     res.send(await Training.find());
 });
@@ -34,9 +34,7 @@ app.get('/trainings/my-trainings/:userId', guard, async (req, res) => {
     const user = getUser(req);
     
     try {
-        const trainings = await Training.find({participants: user._id});
-        console.log("TRAININGS:", trainings);
-        
+        const trainings = await Training.find({participants: user._id});        
         
         if (trainings.length === 0) {
             return res.status(404).json({ message: 'No trainings found for this user.' });
@@ -56,24 +54,28 @@ app.post('/trainings', guard, async (req, res) => {
         const training = new Training({
             trainingName: item.trainingName,
             trainingDetailes: item.trainingDetailes,
-            time: {
-                date: item.TrainingTime.date,
-                time: item.TrainingTime.time,
-                length: item.TrainingTime.length,
+            trainingTime: {
+                date: item.trainingTime.date,
+                time: item.trainingTime.time,
+                length: item.trainingTime.length,
             },
-            TrainingGuideDetails: {
-                first: item.TrainingGuideDetails.first,
-                last: item.TrainingGuideDetails.last,
-                phone: item.TrainingGuideDetails.phone,
-                email: item.TrainingGuideDetails.email
+            trainingGuideDetails: {
+                first: item.trainingGuideDetails.first,
+                last: item.trainingGuideDetails.last,
+                phone: item.trainingGuideDetails.phone,
+                email: item.trainingGuideDetails.email
             },
             createAt: moment().format('YYYY-MM-DD HH:mm'),
             user_id: getUser(req)?._id,
         });
 
-        //! VALIDATION !
+        const { error } = trainingSchema.validate(req.body);
+        if (error) {
+            return res.status(400).send({"ValidateError": error.details[0].message.replace(/"/g, '')});
+        }
         
         //! לעשות בדיקה אם יש שם שיעור באותו הזמן.
+
         const newTraining = await training.save();
         res.send(newTraining);
     } catch (error) {
@@ -92,8 +94,8 @@ app.put('/trainings/:id', async (req, res) => {
         const {
             trainingName,
             trainingDetailes,
-            time: {date, time, length},
-            TrainingGuideDetails: {first, last, phone, email}
+            trainingTime: {date, time, length},
+            trainingGuideDetails: {first, last, phone, email}
         } = req.body;
 
         const training = await Training.findById(req.params.id);
@@ -102,35 +104,30 @@ app.put('/trainings/:id', async (req, res) => {
             return res.status(404).send({"message": "Training not found"});
         }
 
-        //! Need to add a VALIDATION.
-
-        //! Need to check if the user that change the email gave the same email or he want to change it.
-        // if (email && email !== user.email) {
-        //     const sameEmailUser = await User.findOne({ email });
-            // if (sameEmailUser && sameEmailUser.id !== req.params.id) {
-            //     return res.status(403).send({"message": "Email already exists."});
-            // }
-        // }
+        const { error } = trainingSchema.validate(req.body);
+        if (error) {
+            return res.status(400).send({"ValidateError": error.details[0].message.replace(/"/g, '')});
+        }
 
         training.trainingName = trainingName || training.trainingName;
         training.trainingDetailes = trainingDetailes || training.trainingDetailes;
-        training.time = {
-            date: date || training.time.date,
-            time: time || training.time.time,
-            length: length || training.time.length,
+        training.trainingTime = {
+            date: date || training.trainingTime.date,
+            time: time || training.trainingTime.time,
+            length: length || training.trainingTime.length,
         }
-        training.TrainingGuideDetails = {
-            first: first || training.TrainingGuideDetails.first,
-            last: last || training.TrainingGuideDetails.last,
-            phone: phone || training.TrainingGuideDetails.phone,
-            email: email || training.TrainingGuideDetails.email
+        training.trainingGuideDetails = {
+            first: first || training.trainingGuideDetails.first,
+            last: last || training.trainingGuideDetails.last,
+            phone: phone || training.trainingGuideDetails.phone,
+            email: email || training.trainingGuideDetails.email
         }
 
         await training.save();
         res.send(training);
     } catch (err) {
         console.error(err);
-        res.status(500).send({"message": "Internal Server Error"});
+        res.status(500).send(err);
     }
 });
 

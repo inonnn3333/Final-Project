@@ -33,12 +33,12 @@ const Home = () => {
                 }
             );
 
-            console.log(response.data.message); // הודעת הצלחה/ביטול
-
             setBookingStatus((prevStatus) => ({
                 ...prevStatus,
                 [index]: !prevStatus[index], // עדכון המצב לפי הפעולה
             }));
+            window.location.reload();
+
         } catch (error) {
             console.error('Error updating booking:', error.response?.data || error.message);
         }
@@ -75,7 +75,8 @@ const Home = () => {
 
                 // עדכון הנתונים
                 setData(trainings);
-
+                console.log(trainings);
+                
                 // יצירת מצב ראשוני לסטטוס הכפתורים
                 const initialStatus = {};
                 trainings.forEach((training, index) => {
@@ -93,17 +94,20 @@ const Home = () => {
         fetchData();
 }, [user]);
 
+    // useEffect(() => {
+    //         if (!user) return (navigate('/login'));
+    //     }, []);
 
         const filteredData = data.filter((item) =>
         item.trainingName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        `${item.TrainingGuideDetails.first} ${item.TrainingGuideDetails.last}`.toLowerCase().includes(searchQuery.toLowerCase())
+        `${item.trainingGuideDetails.first} ${item.trainingGuideDetails.last}`.toLowerCase().includes(searchQuery.toLowerCase())
+        
     );
+
 
     return (
         <div className='home-container'>
             <h1>שיעורים</h1>
-
-            {/* שורת חיפוש */}
             <input
                 type="text"
                 placeholder="חפש שיעור או מורה..."
@@ -113,46 +117,58 @@ const Home = () => {
             />
 
             <div className='class-card-container'>
-                {filteredData.map((item, index) => (
-                <div key={index} className="class-card">
-                    <div>
-                        <h2>{item.trainingName}</h2>
-                        <p>{`${item.TrainingGuideDetails.first} ${item.TrainingGuideDetails.last}`}</p>
-                    </div>
-                    <div>
-                        <p>
-                            <img src="/images/date-icon.png" alt="date-icon" className='icons' />
-                            {`  ${item.time.time}  |  ${item.time.date}`}
-                        </p>
-                        <p>
-                            <img src="/images/clock-icon.png" alt="clock-icon" className='icons' />
-                            {`  ${item.time.length}`}
-                        </p>
-                        <p>
-                            <img src="/images/peoples-icon.png" alt="profile-icon" className='icons' />
-                            {`  ${item.participants.length}`}
-                        </p>
-                    </div>
-                    {user?.isAdmin === false && (
-                        <div>
-                            <button onClick={() => handleBooking(index, item._id)} className="button-home">
-                                {bookingStatus[index] ? 'בטל תור' : 'תפוס תור'}
-                            </button>
+                {filteredData.length === 0 ? (
+                    <p style={{ textAlign: 'center', marginTop: '2em', color: '#888' }}>לא נמצא שיעור או מורה</p>
+                ) : (
+                    filteredData.map((item, index) => (
+                        <div key={index} className="class-card">
+                            <div>
+                                <h2>{item.trainingName}</h2>
+                                <p>{`${item.trainingGuideDetails.first} ${item.trainingGuideDetails.last}`}</p>
+                            </div>
+                            <div>
+                                <p>
+                                    <img src="/images/date-icon.png" alt="date-icon" className='icons' />
+                                    {`  ${item.trainingTime.time}  |  ${item.trainingTime.date}`}
+                                </p>
+                                <p>
+                                    <img src="/images/clock-icon.png" alt="clock-icon" className='icons' />
+                                    {`  ${item.trainingTime.length}  דקות`}
+                                </p>
+                                <p>
+                                    <img src="/images/peoples-icon.png" alt="profile-icon" className='icons' />
+                                    {`  ${item.participants.length}`}
+                                </p>
+                            </div>
+                            {user?.isAdmin === false && (
+                                <div>
+                                    <button
+                                        onClick={() => handleBooking(index, item._id)}
+                                        className="button-home"
+                                        disabled={item.participants.length >= 25}>
+                                        {item.participants.length >= 25 
+                                            ? 'השיעור מלא' 
+                                            : bookingStatus[index] 
+                                                ? 'בטל תור' 
+                                                : 'תפוס תור'}
+                                    </button>
+                                </div>
+                            )}
+                            {user?.isAdmin && (
+                            <div>
+                                <button onClick={() => handleDelete(item._id)} className="button-home">
+                                    מחיקת אימון
+                                </button>
+                                <button onClick={() => handleEditClick(item._id)}>עריכה</button>
+                            </div>
+                            )}
                         </div>
-                    )}
-                    {user?.isAdmin && (
-                    <div>
-                        <button onClick={() => handleDelete(item._id)} className="button-home">
-                            מחיקת אימון
-                        </button>
-                        <button onClick={() => handleEditClick(item._id)}>עריכה</button>
-                    </div>
-                    )}
-                </div>
-                ))}
+                    ))
+                )}
             </div>
         </div>
     );
+
 };
 
 export default Home;

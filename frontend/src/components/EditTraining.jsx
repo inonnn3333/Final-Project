@@ -13,12 +13,12 @@ function EditTraining() {
     const [formData, setFormData] = useState({
         trainingName: '',
         trainingDetailes: '',
-        time: {
+        trainingTime: {
             date: '',
             time: '',
             length: ''
         },
-        TrainingGuideDetails: {
+        trainingGuideDetails: {
             first: '',
             last: '',
             phone: '',
@@ -93,17 +93,17 @@ function EditTraining() {
                         <input
                             type="text"
                             name="trainingName"
-                            // value={data.trainingName}
+                            value={formData.trainingName}
                             onChange={handleChange}
                             required
                         />
                     </div>
                     <div>
-                        <label>פרטי השיעור</label>
+                        <label>פרטי השיעור:</label>
                         <input
                             type="text"
                             name="trainingDetailes"
-                            // value={data.trainingDetailes}
+                            value={formData.trainingDetailes}
                             onChange={handleChange}
                             required
                         />
@@ -111,9 +111,9 @@ function EditTraining() {
                     <div>
                         <label>תאריך:</label>
                         <input
-                            type="text"
-                            name="time.date"
-                            // value={data.time.date}
+                            type="date"
+                            name="trainingTime.date"
+                            value={formData.trainingTime.date}
                             onChange={handleChange}
                             required
                         />
@@ -121,30 +121,38 @@ function EditTraining() {
                     <div>
                         <label>שעה:</label>
                         <input
-                            type="text"
-                            name="time.time"
-                            // value={item.time.time}
+                            type="time"
+                            name="trainingTime.time"
+                            value={formData.trainingTime.time}
                             onChange={handleChange}
                             required
                         />
                     </div>
                     <div>
                         <label>אורך השיעור:</label>
-                        <input
-                            type="text"
-                            name="time.length"
-                            // value={item.time.length}
+                        <select
+                            name="trainingTime.length"
+                            value={formData.trainingTime.length}
                             onChange={handleChange}
                             required
-                        />
+                        >
+                            <option value="בחר זמן" disabled>בחר זמן</option>
+                            <option value="30">30</option>
+                            <option value="30">35</option>
+                            <option value="40">40</option>
+                            <option value="45">45</option>
+                            <option value="50">50</option>
+                            <option value="55">55</option>
+                            <option value="60">60</option>
+                        </select><span>{` דקות`}</span>
                     </div>
                         <h3>שם מורה</h3>
                     <div>
                         <label>שם פרטי:</label>
                         <input
                             type="text"
-                            name="TrainingGuideDetails.first"
-                            // value={item.TrainingGuideDetails.first}
+                            name="trainingGuideDetails.first"
+                            value={formData.trainingGuideDetails.first}
                             onChange={handleChange}
                             required
                         />
@@ -153,8 +161,8 @@ function EditTraining() {
                         <label>שם משפחה:</label>
                         <input
                             type="text"
-                            name="TrainingGuideDetails.last"
-                            // value={item.TrainingGuideDetails.last}
+                            name="trainingGuideDetails.last"
+                            value={formData.trainingGuideDetails.last}
                             onChange={handleChange}
                             required
                         />
@@ -163,8 +171,8 @@ function EditTraining() {
                         <label>פלאפון:</label>
                         <input
                             type="text"
-                            name="TrainingGuideDetails.phone"
-                            // value={item.TrainingGuideDetails.phone}
+                            name="trainingGuideDetails.phone"
+                            value={formData.trainingGuideDetails.phone}
                             onChange={handleChange}
                             required
                         />
@@ -173,8 +181,8 @@ function EditTraining() {
                         <label>אימייל:</label>
                         <input
                             type="text"
-                            name="TrainingGuideDetails.email"
-                            // value={item.TrainingGuideDetails.email}
+                            name="trainingGuideDetails.email"
+                            value={formData.trainingGuideDetails.email}
                             onChange={handleChange}
                             required
                         />
@@ -185,5 +193,4 @@ function EditTraining() {
         </div>
     );
 }
-
 export default EditTraining;

@@ -14,7 +14,7 @@ const Address = new Schema({
 
 const schema = new Schema({
     name: Name,
-    phone: Number,
+    phone: String,
     email: {
         type: String,
         unique: true,

@@ -3,6 +3,7 @@ import { User } from "./users.model.mjs";
 import moment from 'moment';
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { UserSignup } from "./users.joi.mjs";
 
 
 app.post('/users/login', async (req, res) => {
@@ -23,7 +24,6 @@ app.post('/users/login', async (req, res) => {
         lastName: user.name.last,
         isAdmin: user.isAdmin
     }, process.env.JWT_SECRET, {expiresIn: '1h'})
-    console.log(token);
     
     res.send(token);
 });
@@ -42,10 +42,10 @@ app.post('/users', async (req, res) => {
             createAt,
         } = req.body;
 
-        // const validate = UserSignup.validate(req.body);
-        // if (validate.error) {
-        //     return res.status(400).send({"ValidateError": validate.error.details[0].message.replace(/"/g, '')});
-        // }
+        const validate = UserSignup.validate(req.body);
+        if (validate.error) {
+            return res.status(400).send({"ValidateError": validate.error.details[0].message.replace(/"/g, '')});
+        }
 
         const existingUser = await User.findOne({ email });
         if (existingUser) {

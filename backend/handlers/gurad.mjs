@@ -21,6 +21,5 @@ export const getUser = (req) => {
     if (!user) {
         return null;
     }
-    console.log(user);
     return user;
 }

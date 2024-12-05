@@ -1,6 +1,7 @@
 import { app } from "../../app.mjs";
 import { guard } from "../gurad.mjs";
 import { User } from "./users.model.mjs";
+import { UserSignup, EditUser } from "./users.joi.mjs";
 
 
 //? הצגת כל המשתמשים
@@ -47,7 +48,10 @@ app.put('/users/:id', async (req, res) => {
             return res.status(404).send({"message": "User not found"});
         }
 
-        //! Need to add a VALIDATION.
+        const { error } = EditUser.validate(req.body);
+        if (error) {
+            return res.status(400).send({"ValidateError": error.details[0].message.replace(/"/g, '')});
+        }
 
         //! Need to check if the user that change the email gave the same email or he want to change it.
         // if (email && email !== user.email) {
