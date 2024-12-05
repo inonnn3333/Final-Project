@@ -38,13 +38,12 @@ const Header = () => {
 
     return (
         <div className='header-container'>
-            <button className='btn-icons' onClick={toggleTheme}>
-                {
-                    theme === "light" ?
-                    <img src="/images/sun-icon.png" alt="sun-icon" className='icons'/>
-                    :
-                    <img src="/images/moon-icon.png" alt="moon-icon" className='icons'/>
-                }
+            <button className="btn-icons" onClick={toggleTheme}>
+                <img
+                    src={theme === "light" ? "/images/sun-icon.png" : "/images/moon-icon.png"}
+                    alt={theme === "light" ? "sun-icon" : "moon-icon"}
+                    className="icons"
+                />
             </button>
             {user ? (
                 <button className='btn-login' onClick={() => {logout(); navigate('/login');}}

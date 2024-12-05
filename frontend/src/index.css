@@ -5,6 +5,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #dfdfdf;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+
+/* עיצוב מצב כהה */
+body[data-theme="dark"] {
+  background-color: #3f3f3f;
 }
 
 code {

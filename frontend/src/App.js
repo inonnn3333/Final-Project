@@ -11,8 +11,10 @@ import { UserProvider } from './components/UserContext.js';
 import NewTraining from './components/NewTraining.jsx';
 import MyProfile from './components/MyProfile.jsx';
 import EditTraining from './components/EditTraining.jsx';
+import './index.css';
 
 function App() {
+
   return (
     <Router>
       <UserProvider>

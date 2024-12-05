@@ -24,8 +24,10 @@ export const UserProvider = ({ children }) => {
         const newTheme = theme === 'light' ? 'dark' : 'light';
         setTheme(newTheme);
         localStorage.setItem('theme', newTheme);
+        document.body.setAttribute('data-theme', newTheme);
     };
 
+    
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
@@ -33,9 +35,10 @@ export const UserProvider = ({ children }) => {
             setUser(decodedData);
         }
 
-        const storedTheme = localStorage.getItem('theme');
+        const storedTheme = localStorage.getItem('theme') || 'light';
         if (storedTheme) {
             setTheme(storedTheme);
+            document.body.setAttribute('data-theme', storedTheme);
         }
     }, []);
     
