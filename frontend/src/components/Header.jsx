@@ -1,12 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react';
 import { UserContext } from './UserContext';
 import { useNavigate } from 'react-router-dom';
+import {jwtDecode} from "jwt-decode";
 import '../styles/header.css';
 
 
 const Header = () => {
     const navigate = useNavigate();
-    const { user, setUser, logout, theme, toggleTheme } = useContext(UserContext);
+    const { user, setUser, logout, theme, toggleTheme, decodeAndSetUser } = useContext(UserContext);
     const [theShortenName, setTheShortenName] = useState("אא");
 
     const shortenName = () => {
@@ -18,23 +19,11 @@ const Header = () => {
     }
 
     useEffect(() => {
-        const decodeAndSetUser = () => {
-            const storedUser = localStorage.getItem('user');
-            if (storedUser) {
-                try {
-                    // const decodedData = jwtDecode(storedUser);
-                    // setUser(decodedData);
-                    // navigate('/');
-                } catch (error) {
-                    console.error("Failed to decode token:", error);
-                }
-            }
-        };
         decodeAndSetUser();
         if (user) {
             shortenName()
         }
-    }, [setUser, user]);
+    }, []);
 
     return (
         <div className='header-container'>

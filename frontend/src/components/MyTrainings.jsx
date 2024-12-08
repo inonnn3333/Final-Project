@@ -2,47 +2,45 @@ import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from './UserContext';
 import '../styles/home.css';
 import axios from 'axios';
+import { useNotification } from './Notification';
+
 
 const MyFavoiretes = () => {
     const [data, setData] = useState([]);
     const { user } = useContext(UserContext);
-    const [bookingStatus, setBookingStatus] = useState({});
+    const { addNotification } = useNotification();
+
 
     const handleBooking = async (trainingId) => {
-    try {
-        const userId = user._id;
+        try {
+            const userId = user._id;
 
-        const response = await axios.patch(
-            `http://localhost:1010/trainings/${trainingId}`,
-            { userId },
-            {
-                headers: {
-                    authorization: localStorage.getItem('user'),
-                },
+            const response = await axios.patch(
+                `http://localhost:1010/trainings/${trainingId}`,
+                { userId },
+                {
+                    headers: {
+                        authorization: localStorage.getItem('user'),
+                    },
+                }
+            );
+            const updatedTraining = response.data;
+
+            if (!updatedTraining.participants.includes(userId)) {
+                setData((prevData) =>
+                    prevData.filter((item) => item._id !== trainingId)
+                );
+            } else {
+                setData((prevData) =>
+                    prevData.map((item) =>
+                        item._id === updatedTraining._id ? updatedTraining : item
+                    )
+                );
             }
-        );
-
-        console.log(response.data.message);
-
-        const updatedTraining = response.data;
-
-        // אם המשתמש כבר לא משתתף, מסירים את השיעור מהרשימה
-        if (!updatedTraining.participants.includes(userId)) {
-            setData((prevData) =>
-                prevData.filter((item) => item._id !== trainingId)
-            );
-        } else {
-            // אחרת, מעדכנים את המידע של השיעור ברשימה
-            setData((prevData) =>
-                prevData.map((item) =>
-                    item._id === updatedTraining._id ? updatedTraining : item
-                )
-            );
+        } catch (error) {
+            addNotification('יש בעיה, התחבר שוב', 'error');
         }
-    } catch (error) {
-        console.error('Error updating booking:', error.response?.data || error.message);
-    }
-};
+    };
 
 
 
@@ -56,11 +54,11 @@ const MyFavoiretes = () => {
                 });
                 setData(response.data);
             } catch (err) {
-                console.log(err);
+                addNotification('לא נבחרו שיעורים', 'info');
             }
         };
         fetchData();
-    }, [user]);
+    }, []);
 
 
 

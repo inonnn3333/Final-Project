@@ -1,15 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from './UserContext';
 import { trainingSchema } from '../validations/trainingValidation'; // ייבוא סכמת הוולידציה
-import moment from 'moment'; // ייבוא moment
+import { useNotification } from './Notification';
+
 
 function NewTraining() {
-    const { user } = useContext(UserContext);
+    const { user, setUser, decodeAndSetUser} = useContext(UserContext);
     const navigate = useNavigate();
+    const { addNotification } = useNotification();
+
 
     // שימוש ב-react-hook-form עם joiResolver
     const {
@@ -36,32 +39,30 @@ function NewTraining() {
     });
 
     const onSubmit = async (data) => {
-        // המרת השעה באמצעות moment
-        const formattedTime = moment(data.trainingTime.time, 'HH:mm').format('YYYY-MM-DD');
-        const formattedData = {
-            ...data,
-            trainingTime: {
-                ...data.trainingTime,
-                time: formattedTime,
-            },
-        };
-
         try {
-            const response = await axios.post('http://localhost:1010/trainings', formattedData, {
+            const response = await axios.post('http://localhost:1010/trainings', data, {
                 headers: {
                     authorization: localStorage.getItem('user'),
                 },
             });
             navigate('/');
+            addNotification('השיעור נוסף בהצלחה', 'success');
+
             return response;
         } catch (err) {
             if (err.status === 403) {
-                console.error('אימון קיים');
+                addNotification('אימון קיים', 'warning');
+
             } else {
-                console.error('An error occurred:', err.message);
+                addNotification('משהו השתבש. נסה שוב.', 'error');
+
             }
         }
     };
+
+    useEffect(() => {
+        const userDetailes = decodeAndSetUser();        
+}, []);
 
     return (
         <div style={{ marginBottom: '5em', width: '25em', paddingRight: '2em' }}>

@@ -55,7 +55,8 @@ h2 {
 }
 
 .search-input {
-    width: 30em;
+    width: 20em;
     border-radius: 100px;
     padding-right: 1em;
+    margin-bottom: 1em;
 }

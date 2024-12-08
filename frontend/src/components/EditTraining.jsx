@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from './UserContext';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useNotification } from './Notification';
+
 
 
 function EditTraining() {
@@ -9,6 +11,8 @@ function EditTraining() {
     const { user } = useContext(UserContext);
     const { id } = useParams();
     const [data, setData] = useState();
+    const { addNotification } = useNotification();
+
 
     const [formData, setFormData] = useState({
         trainingName: '',
@@ -56,9 +60,13 @@ function EditTraining() {
                     authorization: localStorage.getItem('user')
                 }});
             navigate('/');
+            addNotification('השיעור התעדכן בהצלחה.', 'success');
+
             return response;
         } catch (err) {
-            console.error('An error occurred:', err.message);            
+            console.error('An error occurred:', err.message);
+            addNotification('הפעולה נכשלה. נסה שוב.', 'error');
+
         }
     };
 

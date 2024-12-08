@@ -4,9 +4,13 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { UserContext } from './UserContext';
 import axios from 'axios';
 import { EditUser } from '../validations/userValidation'; // ייבוא סכמת הוולידציה
+import { useNotification } from './Notification';
+
 
 function MyProfile() {
     const { user } = useContext(UserContext);
+    const { addNotification } = useNotification();
+
 
     // שימוש ב-react-hook-form עם joiResolver
     const {
@@ -36,9 +40,11 @@ function MyProfile() {
                     authorization: localStorage.getItem('user'),
                 },
             });
-            console.log('Profile updated successfully:', response.data);
+            addNotification('הפרופיל עודכן בהצלחה', 'success');
+            return response;
         } catch (err) {
-            console.error('An error occurred:', err.message);
+            addNotification('הפרופיל לא עודכן. נסה שוב.', 'error');
+
         }
     };
 
@@ -76,7 +82,7 @@ function MyProfile() {
                     <input type="text" {...register('address.houseNumber')} />
                     {errors.address?.houseNumber && <p>{errors.address.houseNumber.message}</p>}
                 </div>
-                <button type="submit">שמור שינויים:</button>
+                <button type="submit">שמור שינויים</button>
             </form>
         </div>
     );

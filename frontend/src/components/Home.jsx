@@ -2,8 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from './UserContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
-
+import { useNotification } from './Notification';
 import '../styles/home.css';
 
 const Home = () => {
@@ -12,7 +11,9 @@ const Home = () => {
     const [data, setData] = useState([]);
     const [bookingStatus, setBookingStatus] = useState({});
     const [searchQuery, setSearchQuery] = useState('');
-    const { user } = useContext(UserContext);
+    const { user, setUser , decodeAndSetUser } = useContext(UserContext);
+    const { addNotification } = useNotification();
+
 
     const handleEditClick = (lessonId) => {
         navigate(`/edit-training/${lessonId}`)
@@ -21,6 +22,8 @@ const Home = () => {
 
     const handleBooking = async (index, trainingId) => {
         try {
+            const userDetailes = await decodeAndSetUser();
+            setUser(userDetailes);
             const userId = user._id; // ה-ID של המשתמש, כנראה נלקח מ-context או state
 
             const response = await axios.patch(
@@ -37,10 +40,14 @@ const Home = () => {
                 ...prevStatus,
                 [index]: !prevStatus[index], // עדכון המצב לפי הפעולה
             }));
-            window.location.reload();
+            addNotification('הפעולה בוצעה בהצלחה', 'success');
+            return response;
+            // window.location.reload();
+
 
         } catch (error) {
             console.error('Error updating booking:', error.response?.data || error.message);
+            addNotification('משהו לא הצליח. נסה להתחבר מחדש.', 'error');
         }
     };
 
@@ -54,35 +61,31 @@ const Home = () => {
                     },
                 });
                 setData((prevData) => prevData.filter((user) => user._id !== itemId));
+                addNotification('המחיקה בוצעה בהצלחה', 'success');
+
             } catch (error) {
                 console.error("Error deleting item:", error);
+                addNotification('משהו השתבש, נסה שוב', 'error');
             }
         }
     };
-
-
 
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:1010/trainings');
-                if (response.status !== 200) {
-                    throw new Error('Failed to fetch data');
-                }
-
                 const trainings = response.data;
 
-                // עדכון הנתונים
                 setData(trainings);
-                console.log(trainings);
                 
                 // יצירת מצב ראשוני לסטטוס הכפתורים
                 const initialStatus = {};
+                
                 trainings.forEach((training, index) => {
                     // בדיקה אם המשתמש כבר ברשימת המשתתפים
                     const isRegistered = training.participants.includes(user._id);
-                    initialStatus[index] = isRegistered; // true אם המשתמש רשום, אחרת false
+                    initialStatus[index] = isRegistered; // true אם המשתמש רשום, אחרת false                    
                 });
 
                 setBookingStatus(initialStatus); // עדכון הסטטוס של כל הכפתורים
@@ -92,11 +95,8 @@ const Home = () => {
         };
 
         fetchData();
-}, [user]);
+    }, [user]);
 
-    // useEffect(() => {
-    //         if (!user) return (navigate('/login'));
-    //     }, []);
 
         const filteredData = data.filter((item) =>
         item.trainingName.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -113,7 +113,7 @@ const Home = () => {
                 placeholder="חפש שיעור או מורה..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="search-input"
+                className="search-input"   
             />
 
             <div className='class-card-container'>

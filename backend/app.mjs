@@ -1,10 +1,11 @@
 import express from 'express';
 import cors from 'cors';
+import moment from 'moment';
 import mongoose from 'mongoose';
+import chalk from 'chalk';
+import path from 'path';
 import dotenv from 'dotenv';
 import morgan from "morgan";
-import chalk from 'chalk';
-import moment from 'moment';
 
 
 dotenv.config();
@@ -24,7 +25,7 @@ main().catch(err => console.error((err)));
 
 export const app = express();
 
-app.use(express.json()); // In this line of code, Im using json format.
+app.use(express.json());
 
 app.use(morgan(function (tokens, req, res) {
     const status = tokens.status(req, res)
@@ -39,6 +40,8 @@ app.use(morgan(function (tokens, req, res) {
     }
 ));  
 
+app.use(express.static("public"));
+
 app.use(cors({
     origin: true,
     credentials: true,
@@ -46,7 +49,7 @@ app.use(cors({
     allowedHeaders: 'Content-Type, Accept, Authorization',
 }));
 
-app.listen( 1010, () => {
+app.listen(process.env.PORT, () => {
     console.log("Server is running on port 1010");
 })
 
@@ -57,3 +60,12 @@ app.get('/', (req, res) => {
 import ('./handlers/users/users.mjs');
 import ('./handlers/users/auth.mjs');
 import ('./handlers/trainings/trainings.mjs');
+import ('./initialData/initial-data.service.mjs');
+
+// (async () => {
+
+// app.get('/*', (req, res) => {
+//         res.sendFile(path.resolve('./public/error-page.html'));
+//     });
+    
+// })();

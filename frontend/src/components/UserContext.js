@@ -9,11 +9,24 @@ export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [theme, setTheme] = useState('light');
 
-    const login = (userData) => {
-        const deCode = jwtDecode(userData);
-        setUser(deCode);
+    const login = async (userData) => {
         localStorage.setItem('user', userData);
+        decodeAndSetUser()
     };
+
+    const decodeAndSetUser = () => {
+            const storedUser = localStorage.getItem('user');
+            if (storedUser) {
+                try {
+                    const decodedData = jwtDecode(storedUser);
+                    // console.log("console says", decodedData);
+                    setUser(decodedData);
+                    return decodedData;
+                } catch (error) {
+                    console.error("Failed to decode token:", error);
+                }
+            }
+        };
 
     const logout = () => {
         setUser(null);
@@ -29,11 +42,12 @@ export const UserProvider = ({ children }) => {
 
     
     useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            const decodedData = jwtDecode(storedUser);
-            setUser(decodedData);
-        }
+        // const storedUser = localStorage.getItem('user');
+        // if (storedUser) {
+        //     const decodedData = jwtDecode(storedUser);
+        //     setUser(decodedData);
+        // }
+        decodeAndSetUser()
 
         const storedTheme = localStorage.getItem('theme') || 'light';
         if (storedTheme) {
@@ -43,7 +57,7 @@ export const UserProvider = ({ children }) => {
     }, []);
     
     return (
-        <UserContext.Provider value={{ user, setUser, login, logout, theme, toggleTheme }}>
+        <UserContext.Provider value={{ user, setUser, login, logout, theme, toggleTheme, decodeAndSetUser}}>
             {children}
         </UserContext.Provider>
     );

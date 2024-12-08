@@ -3,6 +3,7 @@ import { UserContext } from './UserContext';
 import '../styles/style.css'; // מייבא את קובץ ה-CSS
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useNotification } from './Notification';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -10,6 +11,7 @@ const Login = () => {
     const [error, setError] = useState('');
     const { login, user } = useContext(UserContext);
     const navigate = useNavigate();
+    const { addNotification } = useNotification();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,7 +30,7 @@ const Login = () => {
                 setError('');
             }
         } catch {
-            setError('Login failed. Please check your credentials.');
+            addNotification('ההתחברות נכשלה. נסה שוב.', 'error');
         }
     };
 

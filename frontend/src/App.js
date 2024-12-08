@@ -11,6 +11,7 @@ import { UserProvider } from './components/UserContext.js';
 import NewTraining from './components/NewTraining.jsx';
 import MyProfile from './components/MyProfile.jsx';
 import EditTraining from './components/EditTraining.jsx';
+import { NotificationProvider } from './components/Notification.jsx';
 import './index.css';
 
 function App() {
@@ -18,18 +19,20 @@ function App() {
   return (
     <Router>
       <UserProvider>
-        <Header/>
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/" element={<Home />} /> 
-            <Route path="/my-favorites" element={<MyTrainings />} />
-            <Route path="/new-training" element={<NewTraining />} />
-            <Route path="/edit-training/:id" element={<EditTraining />} />
-            <Route path="/edit-profile" element={<MyProfile/>} />
-            <Route path="/my-users" element={<Users />} />
-          </Routes>
-        <Footer/>
+        <NotificationProvider>
+          <Header/>
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/" element={<Home />} /> 
+              <Route path="/my-favorites" element={<MyTrainings />} />
+              <Route path="/new-training" element={<NewTraining />} />
+              <Route path="/edit-training/:id" element={<EditTraining />} />
+              <Route path="/edit-profile" element={<MyProfile/>} />
+              <Route path="/my-users" element={<Users />} />
+            </Routes>
+          <Footer/>
+        </NotificationProvider>
       </UserProvider>
     </Router>
   );

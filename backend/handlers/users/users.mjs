@@ -67,7 +67,6 @@ app.put('/users/:id', async (req, res) => {
         };
         user.phone = phone || user.phone;
         user.email = email || user.email;
-        user.password = password || user.password; //! Need to add bcrypt.
         user.address = {
             city: city || user.address.city,
             street: street || user.address.street,
