@@ -1,70 +1,106 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# **Sports Training Scheduling Application**
 
-## Available Scripts
+A smart application for managing and scheduling sports training sessions offers a convenient and efficient user experience for regular users and administrators.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## **Table of Contents**
+1. [Project Description](#project-description)
+2. [Key Features](#key-features)
+3. [Technologies and Libraries Used](#technologies-and-libraries-used)
+4. [Future Enhancements](#future-enhancements)
+5. [Credits](#credits)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## **Project Description**
 
-### `npm test`
+The application provides a smart solution for managing and scheduling sports training sessions, focusing on high user experience, administrative flexibility, and advanced functionality.  
+The application is designed for two types of users:  
+1. **Regular Users** – Can schedule, cancel, and manage their training sessions.  
+2. **Administrators (Admins)** – Can manage the training sessions and users in the system.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## **Key Features**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### **Regular User:**
+1. **Homepage:**  
+   - View a list of available training sessions.  
+   - Book training sessions.  
+   - View details about each session (date, time, additional information).  
+2. **My Training Sessions:**  
+   - View a list of sessions selected by the user.  
+   - Cancel booked sessions.  
+3. **Profile Editing:**  
+   - Update personal information (name, email, etc.).  
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### **Administrator (Admin):**
+1. **Training Management:**  
+   - Edit existing training sessions.  
+   - Delete training sessions.  
+   - Add new training sessions.  
+   - View the number of participants in each session.  
+2. **User Management:**  
+   - View the list of registered users.  
+   - Change user roles (from client to admin and vice versa).  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## **Technologies and Libraries Used**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### **Backend:**
+The application utilizes the following libraries and tools:
+- **bcrypt** – For password encryption.  
+- **chalk** – For enhancing console messages.  
+- **cors** – For handling cross-origin requests.  
+- **dotenv** – For managing environment variables.  
+- **express** – For building the server-side application.  
+- **joi** – For validating user data.  
+- **jsonwebtoken** – For creating and managing JWT.  
+- **moment** – For working with dates and times.  
+- **mongoose** – For interacting with the MongoDB database.  
+- **morgan** – For logging HTTP requests.  
+- **path** – For file path manipulation.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### **Frontend:**
+The application utilizes the following libraries and tools:
+- **axios** – For making API calls.  
+- **bcrypt** / **bcryptjs** – For encrypting data (mainly passwords).  
+- **joi** – For validating user data.  
+- **jwt-decode** – For decoding JWT on the client side.  
+- **moment** – For working with dates and times.  
+- **react** – For building a dynamic client-side application.  
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## **Future Enhancements**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. **Waiting List:**  
+   - When a session reaches full capacity (25 participants), users can join a waiting list.  
+   - Once a spot becomes available, the first user on the waiting list will be notified or granted access.  
 
-## Learn More
+2. **Enhanced User Management:**  
+   - Allow administrators to edit user details, such as:  
+     - Update user name.  
+     - Reset password.  
+     - Edit additional personal details (email, phone, etc.).  
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. **UI Improvements:**  
+   - Add **Dark Mode** and **Light Mode** options for all users.  
+   - Redesign the UI using **Sass**/**SCSS** for more efficient, flexible, and organized styling.  
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. **API Call Management with Redux:**  
+   - Move all API calls to a centralized system managed by **Redux**.  
+   - Improve code organization by separating API calls from individual React components.  
+   - Create cleaner, more maintainable, and unified code.  
 
-### Code Splitting
+5. Support for multiple languages.  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## **Credits**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Developed by: **Inon Moshe Yosef**.  
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
