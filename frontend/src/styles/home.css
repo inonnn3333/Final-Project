@@ -56,7 +56,39 @@ h2 {
 
 .search-input {
     width: 20em;
+    border: solid 1px #000;
     border-radius: 100px;
-    padding-right: 1em;
+    padding: 0.5em 1em 0.5em 0;
     margin-bottom: 1em;
+}
+
+.admin-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 5em;
+    gap: 10px;
+}
+
+.admin-button .admin-btn-inner {
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+    width: 100%;
+    border: none;
+    height: 50%;
+    transition: all 0.2s ease;
+}
+
+.admin-button .admin-btn-inner:hover {
+    box-shadow: 0 7px 10px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+}
+
+.admin-button .admin-btn-inner img {
+    padding-left: 10px;
+    width: 1em;
+}
+
+.delete-button {
+    background-color: #DE3333;
 }

@@ -3,7 +3,7 @@ import { UserContext } from './UserContext';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useNotification } from './Notification';
-
+import "../styles/editTraining.css"
 
 
 function EditTraining() {
@@ -92,8 +92,8 @@ function EditTraining() {
 }, [user]);
 
     return (
-        <div style={{margin: "5em"}}>
-            <div>
+        <div className='editTraining-container'>
+            <div className='editTraining-container-inner'>
                 <h2>עריכת שיעור</h2>
                 <form onSubmit={handleSubmit}>
                     <div>
@@ -195,7 +195,7 @@ function EditTraining() {
                             required
                         />
                     </div>
-                    <button type="submit">עדכן שיעור</button>
+                    <button className='btn' type="submit">עדכן שיעור</button>
                 </form>
             </div>
         </div>

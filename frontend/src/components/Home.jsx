@@ -155,11 +155,14 @@ const Home = () => {
                                 </div>
                             )}
                             {user?.isAdmin && (
-                            <div>
-                                <button onClick={() => handleDelete(item._id)} className="button-home">
-                                    מחיקת אימון
+                            <div className='admin-button'>
+                                <button className='admin-btn-inner delete-button' onClick={() => handleDelete(item._id)}>
+                                    <img src="/images/trash-icon.png" alt="trash-icon" />
+                                    מחיקה
                                 </button>
-                                <button onClick={() => handleEditClick(item._id)}>עריכה</button>
+                                <button className='admin-btn-inner edit-button' onClick={() => handleEditClick(item._id)}>
+                                        <img src="/images/edit-icon.png" alt="edit-icon" />
+                                    עריכה</button>
                             </div>
                             )}
                         </div>

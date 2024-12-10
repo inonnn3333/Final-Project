@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/style.css'
+import '../styles/users.css'
 import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
+
 
 
 const Users = () => {
     // const navigate = useNavigate();
     const [data, setData] = useState([]);
-
+// 
     const handleDelete = async (userId) => {
         const confirmDelete = window.confirm("האם ברצונך למחוק את המשתמש?");
         if (confirmDelete) {
@@ -78,7 +78,7 @@ const Users = () => {
             //     <button onClick={() => {navigate('/home')}}>חזרה לדף הראשי</button>
             // </div>
             // :
-            <div>
+            <div className='users-container'>
                 <h1>הלקוחות שלי</h1>
                 <table border="1" style={{ width: '100%', textAlign: 'center' }}>
                 <thead>
@@ -107,12 +107,16 @@ const Users = () => {
                             <td>{user.address.houseNumber}</td>
                             <td>{user.createAt}</td>
                             <td>
-                                <button onClick={() => handleAdmin(user.isAdmin, user._id)}>
+                                <button
+                                    className='admin-btn'
+                                    onClick={() => handleAdmin(user.isAdmin, user._id)} 
+                                    style={user.isAdmin ? {backgroundColor: "#13152d", color: "#fff"} : {backgroundColor: "#fff"}}
+                                    >
                                     {user.isAdmin ? <p>מנהל</p> : <p>לקוח</p>}
                                 </button>
                             </td>
                             <td>
-                                <button onClick={() => handleDelete(user._id)}>
+                                <button className="delete-btn" onClick={() => handleDelete(user._id)}>
                                     <img src="/images/trash-icon.png" alt="trash-icon" className='icons' />
                                 </button>
                             </td>

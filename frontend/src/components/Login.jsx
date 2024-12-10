@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { UserContext } from './UserContext';
-import '../styles/style.css'; // מייבא את קובץ ה-CSS
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useNotification } from './Notification';
+import '../styles/login.css'; 
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -12,6 +12,11 @@ const Login = () => {
     const { login, user } = useContext(UserContext);
     const navigate = useNavigate();
     const { addNotification } = useNotification();
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleDetails = () => {
+        setIsOpen(!isOpen);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -38,37 +43,80 @@ const Login = () => {
 
     return (
         <div className="login-container">
-            <form onSubmit={handleSubmit} className="login-form">
-                <h2>התחברות</h2>
+            <div className="login-box">
+                <div className="login-form">
+                    <form onSubmit={handleSubmit} className='form-class'>
+                        <h2>התחברות</h2>
+                        <div className="input-class">
+                            <div className="input-container">
+                                <input
+                                    className= "in"
+                                    type="email"
+                                    id="email"
+                                    value={email}
+                                    placeholder='אימייל'
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </div>
+                            <div className="input-container">
+                                <input
+                                    className= "in"
+                                    type="password"
+                                    id="password"
+                                    value={password}
+                                    placeholder='סיסמא'
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                            </div>
+                            <button type="submit" className="btn">התחבר</button>
+                            {error && <p className="err">{error}</p>}
+                        </div>
 
-                {error && <p className="error">{error}</p>}
+                        <div>
+                            <button className='btn btn-new' onClick={() => navigate('/Signup')}>חשבון חדש</button>
+                        </div>
+                    </form>
+                </div>
+            
+                <div className="app-info">
+                    {!isOpen && (
+                        <>
+                            <h1>MyFit</h1>
+                            <p>האפליקציה המושלמת לניהול והזמנת שיעורי ספורט</p>
+                            <button onClick={toggleDetails} className='info-button'>
+                                <img src="/images/arrow-down.png" alt="arrow-down" />    
+                            </button>
+                        </>
+                    )}
+                    
 
-                <div className="input-container">
-                    <label htmlFor="email">אימייל:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
+                    {isOpen && (
+                        <div className='app-info-open'>
+                            <h3>מה תוכלו לעשות באפליקציה?</h3>
+                            <ul>
+                                <li>לצפות בלוח השיעורים ולמצוא את השיעור המתאים לכם.</li>
+                                <li>להירשם לשיעורים בקלות ובמהירות.</li>
+                                <li>לנהל את ההרשמות שלכם ולשמור על שגרת האימונים.</li>
+                            </ul>
+
+                            <h3>איך זה עובד?</h3>
+                            <ol>
+                                <li>הירשמו לאפליקציה בקלות על ידי יצירת חשבון אישי.</li>
+                                <li>
+                                לאחר ההתחברות, תוכלו לגלות שיעורים חדשים, להירשם בלחיצת כפתור וליהנות מחוויית אימונים
+                                משודרגת.
+                                </li>
+                                <li>עקבו אחר היסטוריית האימונים שלכם וקבלו התראות על שיעורים קרובים.</li>
+                            </ol>
+
+                            <p>הצטרפו אלינו ותהפכו את שגרת האימונים שלכם לנוחה ומדויקת יותר!</p>
+                            <button onClick={toggleDetails} className='info-button'>
+                                <img src="/images/arrow-up.png" alt="arrow-up"/>    
+                            </button>
+                        </div>
+                    )}
                 </div>
-                <div className="input-container">
-                    <label htmlFor="password">סיסמה:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
-                <button type="submit" className="submit-button">התחבר</button>
-                <div>
-                    <p>
-                        אין לך חשבון?
-                        <button onClick={() => navigate('/Signup')}>צור חשבון עכשיו</button>
-                    </p>
-                </div>
-            </form>
+            </div>
         </div>
     );
 };
