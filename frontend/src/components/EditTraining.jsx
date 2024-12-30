@@ -3,6 +3,7 @@ import { UserContext } from './UserContext';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useNotification } from './Notification';
+import { useLoader } from './LoaderContext';
 import "../styles/editTraining.css"
 
 
@@ -12,6 +13,7 @@ function EditTraining() {
     const { id } = useParams();
     const [data, setData] = useState();
     const { addNotification } = useNotification();
+    const { showLoader, hideLoader } = useLoader();
 
 
     const [formData, setFormData] = useState({
@@ -55,6 +57,7 @@ function EditTraining() {
         console.log(e);
         
         try {
+            showLoader();
             const response = await axios.put(`http://localhost:1010/trainings/${id}`, formData, {
                 headers: {
                     authorization: localStorage.getItem('user')
@@ -66,14 +69,18 @@ function EditTraining() {
         } catch (err) {
             console.error('An error occurred:', err.message);
             addNotification('הפעולה נכשלה. נסה שוב.', 'error');
-
-        }
+        } finally {
+                setTimeout(() => {
+                    hideLoader();
+                }, 1500);
+            }
     };
 
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                showLoader();
                 const response = await axios.get(`http://localhost:1010/trainings/${id}`);
                 if (response.status !== 200) {
                     throw new Error('Failed to fetch data');
@@ -85,6 +92,10 @@ function EditTraining() {
 
             } catch (error) {
                 console.error('Error fetching data:', error);
+            } finally {
+                setTimeout(() => {
+                    hideLoader();
+                }, 1500);
             }
         };
 

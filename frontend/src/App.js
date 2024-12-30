@@ -12,27 +12,32 @@ import NewTraining from './components/NewTraining.jsx';
 import MyProfile from './components/MyProfile.jsx';
 import EditTraining from './components/EditTraining.jsx';
 import { NotificationProvider } from './components/Notification.jsx';
+import { LoaderProvider } from './components/LoaderContext.jsx';
 import './index.css';
+import Loader from './components/Loader.jsx';
 
 function App() {
 
   return (
     <Router>
       <UserProvider>
-        <NotificationProvider>
-          <Header/>
-            <Routes>
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/" element={<Home />} /> 
-              <Route path="/my-favorites" element={<MyTrainings />} />
-              <Route path="/new-training" element={<NewTraining />} />
-              <Route path="/edit-training/:id" element={<EditTraining />} />
-              <Route path="/edit-profile" element={<MyProfile/>} />
-              <Route path="/my-users" element={<Users />} />
-            </Routes>
-          <Footer/>
-        </NotificationProvider>
+        <LoaderProvider>
+          <NotificationProvider>
+            <Loader/>
+            <Header/>
+              <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/" element={<Home />} /> 
+                <Route path="/my-favorites" element={<MyTrainings />} />
+                <Route path="/new-training" element={<NewTraining />} />
+                <Route path="/edit-training/:id" element={<EditTraining />} />
+                <Route path="/edit-profile" element={<MyProfile/>} />
+                <Route path="/my-users" element={<Users />} />
+              </Routes>
+            <Footer/>
+          </NotificationProvider>
+        </LoaderProvider>
       </UserProvider>
     </Router>
   );

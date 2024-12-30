@@ -5,11 +5,13 @@ import { UserContext } from './UserContext';
 import axios from 'axios';
 import { EditUser } from '../validations/userValidation'; // ייבוא סכמת הוולידציה
 import { useNotification } from './Notification';
+import { useLoader } from './LoaderContext';
 
 
 function MyProfile() {
     const { user } = useContext(UserContext);
     const { addNotification } = useNotification();
+    const { showLoader, hideLoader } = useLoader();
 
 
     // שימוש ב-react-hook-form עם joiResolver
@@ -35,6 +37,7 @@ function MyProfile() {
 
     const onSubmit = async (data) => {
         try {
+            showLoader();
             const response = await axios.put(`http://localhost:1010/users/${user._id}`, data, {
                 headers: {
                     authorization: localStorage.getItem('user'),
@@ -44,8 +47,12 @@ function MyProfile() {
             return response;
         } catch (err) {
             addNotification('הפרופיל לא עודכן. נסה שוב.', 'error');
-
-        }
+        } finally {
+                setTimeout(() => {
+                    hideLoader();
+                }, 1500);
+            }
+        
     };
 
     return (

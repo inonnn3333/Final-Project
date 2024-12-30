@@ -1,7 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react';
 import { UserContext } from './UserContext';
 import { useNavigate } from 'react-router-dom';
-import {jwtDecode} from "jwt-decode";
+// import {jwtDecode} from "jwt-decode";
+import { useLoader } from './LoaderContext';
 import '../styles/header.css';
 
 
@@ -9,6 +10,7 @@ const Header = () => {
     const navigate = useNavigate();
     const { user, setUser, logout, theme, toggleTheme, decodeAndSetUser } = useContext(UserContext);
     const [theShortenName, setTheShortenName] = useState("אא");
+    const { showLoader, hideLoader } = useLoader();
 
     const shortenName = () => {
 
@@ -16,6 +18,15 @@ const Header = () => {
         const lastInitial = user.lastName[0].toUpperCase();
         
         setTheShortenName(`${firstInitial}${lastInitial}`);
+    }
+
+    const logoutFunction = () => {
+        showLoader();
+        logout();
+        setTimeout(() => {
+            hideLoader();
+        }, 1500);
+        navigate('/login');
     }
 
     useEffect(() => {
@@ -35,7 +46,7 @@ const Header = () => {
                 />
             </button>
             {user ? (
-                <button className='btn-login' onClick={() => {logout(); navigate('/login');}}
+                <button className='btn-login' onClick={() => {logoutFunction()}}
                 >
                     <img src="/images/logout-icon.png" alt="logout-icon" className='icons'/>
                     התנתק

@@ -3,6 +3,7 @@ import { UserContext } from './UserContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from './Notification';
+import { useLoader } from './LoaderContext';
 import '../styles/home.css';
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const { user, setUser , decodeAndSetUser } = useContext(UserContext);
     const { addNotification } = useNotification();
+    const { showLoader, hideLoader } = useLoader();
 
 
     const handleEditClick = (lessonId) => {
@@ -22,6 +24,7 @@ const Home = () => {
 
     const handleBooking = async (index, trainingId) => {
         try {
+            showLoader();
             const userDetailes = await decodeAndSetUser();
             setUser(userDetailes);
             const userId = user._id; // ה-ID של המשתמש, כנראה נלקח מ-context או state
@@ -48,13 +51,18 @@ const Home = () => {
         } catch (error) {
             console.error('Error updating booking:', error.response?.data || error.message);
             addNotification('משהו לא הצליח. נסה להתחבר מחדש.', 'error');
-        }
+        } finally {
+                setTimeout(() => {
+                    hideLoader();
+                }, 1500);
+            }
     };
 
     const handleDelete = async (itemId) => {
         const confirmDelete = window.confirm("האם ברצונך למחוק את האימון?");
         if (confirmDelete) {
             try {
+                showLoader();
                 await axios.delete(`http://localhost:1010/trainings/${itemId}`, {
                     headers: {
                         authorization: localStorage.getItem('user'),
@@ -66,6 +74,10 @@ const Home = () => {
             } catch (error) {
                 console.error("Error deleting item:", error);
                 addNotification('משהו השתבש, נסה שוב', 'error');
+            } finally {
+                setTimeout(() => {
+                    hideLoader();
+                }, 1500);
             }
         }
     };
@@ -74,7 +86,9 @@ const Home = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                showLoader();
                 const response = await axios.get('http://localhost:1010/trainings');
+
                 const trainings = response.data;
 
                 setData(trainings);
@@ -91,6 +105,10 @@ const Home = () => {
                 setBookingStatus(initialStatus); // עדכון הסטטוס של כל הכפתורים
             } catch (error) {
                 console.error('Error fetching data:', error);
+            } finally {
+                setTimeout(() => {
+                    hideLoader();
+                }, 1500);
             }
         };
 
