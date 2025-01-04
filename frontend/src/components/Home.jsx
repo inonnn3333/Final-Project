@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useNotification } from './Notification';
 import { useLoader } from './LoaderContext';
 import '../styles/home.css';
+import Notes from './Notes';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -134,6 +135,10 @@ const Home = () => {
                 className="search-input"   
             />
 
+            <div>
+                <h2>הודעות</h2>
+                <Notes/>
+            </div>
             <div className='class-card-container'>
                 {filteredData.length === 0 ? (
                     <p style={{ textAlign: 'center', marginTop: '2em', color: '#888' }}>לא נמצא שיעור או מורה</p>
