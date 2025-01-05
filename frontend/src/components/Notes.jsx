@@ -1,22 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import '../styles/notes.css';
 
 const Notes = () => {
-    const [data, setData] = useState("שלום לכולם אתם תותחים ואני לא  כחנכג ינחגכ חדגכ חךדג כיה אני יכול לעשות");
+    const [data, setData] = useState([]);
+    const [editBox, setEditBox] = useState(false);
+
+    useEffect(() => {     
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:1010/messages');
+                // const responseData = JSON.stringify(response.data);
+                setData(response.data);
+            } catch (error) {
+                console.error('Error fetching data:', error.response?.data || error.message);
+            } finally {
+                // hideLoader();    
+            }
+        }
+        fetchData();
+    }, []);
 
     return (
         <div>
             <div className='message-box'>
                 <div>
-                    {data}
+                    {data.map((item) => ( // הרצת לולאה על המערך
+                        <div key={item.id} className='message'>
+                            <li>{item.content}</li>
+                        </div>
+                    ))}
                 </div>
-                <div className='NISAION'>
                     <button className='edit-button'>
-                            <span className="tooltip">הודעה חדשה</span>
                             <img src="/images/edit-icon.png" alt="edit-icon" />
                     </button>
                 </div>
-            </div>
 
             <form action="">
                 <p>הודעה חדשה</p>
