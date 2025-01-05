@@ -60,6 +60,7 @@ app.get('/', (req, res) => {
 import ('./handlers/users/users.mjs');
 import ('./handlers/users/auth.mjs');
 import ('./handlers/trainings/trainings.mjs');
+import ('./handlers/messages/messages.mjs');
 import ('./initialData/initial-data.service.mjs');
 
 // (async () => {

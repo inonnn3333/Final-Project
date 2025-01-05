@@ -1,0 +1,23 @@
+.message-box {
+    width: 20em;
+    border: solid 1px black;
+    border-radius: 5px;
+    padding: 0.2em;
+}
+
+button img {
+    width: 0.9em;
+}
+
+div .edit-button {
+    background-color: #FF6D4C;
+    width: 1.4em;
+    height: 1.4em;
+    border-radius: 0 0 3px 0;
+    border: none;
+}
+
+div .edit-button:hover {
+    background-color: #e45f41;
+    cursor: pointer;
+}
