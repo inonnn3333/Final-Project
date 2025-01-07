@@ -5,12 +5,27 @@ import '../styles/notes.css';
 const Notes = () => {
     const [data, setData] = useState([]);
     const [editBox, setEditBox] = useState(false);
+    const [formData, setFormData] = useState({content: ''});
+
+    const handleChange = (e) => {
+        e.preventDefault();
+        setFormData({content: e.target.value});
+    }
+
+
+    const addNewMessage = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:1010/messages', formData);
+            setData([...data, response.data]);
+        } catch (error) {
+            console.error('Error adding new message:', error.response?.data || error.message);}
+    }
 
     useEffect(() => {     
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:1010/messages');
-                // const responseData = JSON.stringify(response.data);
                 setData(response.data);
             } catch (error) {
                 console.error('Error fetching data:', error.response?.data || error.message);
@@ -31,16 +46,20 @@ const Notes = () => {
                         </div>
                     ))}
                 </div>
-                    <button className='edit-button'>
+                    <button className='edit-button' onClick={() => setEditBox(!editBox)}>
                             <img src="/images/edit-icon.png" alt="edit-icon" />
                     </button>
                 </div>
-
-            <form action="">
-                <p>הודעה חדשה</p>
-                <input type="text" />
-                <button>הוסף הודעה</button>
-            </form>
+            
+                {!editBox ? null :
+                    <div>
+                        <form action="" onSubmit={addNewMessage}>
+                            <label>הודעה חדשה</label>
+                            <input type="text" onChange={handleChange}/>
+                            <button>הוסף הודעה</button>
+                        </form>
+                    </div>
+                }
         </div>
     )
 }

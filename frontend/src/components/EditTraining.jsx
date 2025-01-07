@@ -37,18 +37,18 @@ function EditTraining() {
 
         if (name.includes('.')) {
         const [mainField, subField] = name.split('.');
-        setFormData({
-            ...formData,
-            [mainField]: {
-            ...formData[mainField],
-            [subField]: value,
-            },
-        });
+            setFormData({
+                ...formData,
+                [mainField]: {
+                    ...formData[mainField],
+                    [subField]: value,
+                },
+            });
         } else {
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
+            setFormData({
+                ...formData,
+                [name]: value,
+            });
         }
     };
 
