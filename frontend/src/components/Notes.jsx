@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import moment from 'moment';
 import '../styles/notes.css';
 
 const Notes = () => {
     const [data, setData] = useState([]);
     const [editBox, setEditBox] = useState(false);
-    const [formData, setFormData] = useState({content: ''});
+    const [formData, setFormData] = useState({content: '', timestamp: ''});
 
     const handleChange = (e) => {
         e.preventDefault();
-        setFormData({content: e.target.value});
+        setFormData({content: e.target.value, timestamp: `${moment().format('YYYY-MM-DD')}`});
     }
 
 
@@ -42,7 +43,7 @@ const Notes = () => {
                 <div>
                     {data.map((item) => ( // הרצת לולאה על המערך
                         <div key={item.id} className='message'>
-                            <li>{item.content}</li>
+                            <li>{item.timestamp} | {item.content}</li>
                         </div>
                     ))}
                 </div>
