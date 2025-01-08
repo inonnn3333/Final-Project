@@ -1,8 +1,15 @@
+.h2 {
+    margin: 0.5em 0;
+    /* add buttom line */
+    border-bottom: 1px solid #e45f41;
+}
+
 .message-box {
-    width: 20em;
+    width: 25em;
     border: solid 1px black;
     border-radius: 5px;
-    padding: 0.2em;
+    padding: 0.2em 0.5em;
+    margin-bottom: 1em;
 }
 
 div .edit-button {
@@ -13,10 +20,7 @@ div .edit-button {
     transition: background-color ease-in-out 0.2s;
 }
 
-div .edit-button:hover {
-    background-color: #e45f41;
-    cursor: pointer;
-}
+/* Removed duplicate .edit-button:hover rule */
 
 div .edit-button img {
     width: 0.9em;
@@ -40,16 +44,27 @@ div .edit-button:hover {
 }
 
 .new-message-box form {
+    text-align: center;
+    box-sizing: border-box;
     width: 100%;
+    height: 100%;
+    padding: 1em;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: space-around;
     justify-content: space-around;
     background-color: #fff;
 }
 
+.new-message-box form input {
+    height: 4em;
+    border-radius: 5px;
+    border: solid 1px #e45f41;
+    padding: 0.2em 0.5em;
+}
+
 .new-message-box button {
-    width: 100%;
+    width: 50%;
     height: 2em;
     border-radius: 5px;
     border: solid 1px #e45f41;

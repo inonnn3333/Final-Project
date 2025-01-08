@@ -78,7 +78,9 @@ const MyFavoiretes = () => {
                                 <p><strong>שעה:</strong> {item.trainingTime.time}</p>
                                 <p><strong>מספר משתתפים:</strong> {item.trainingTime.length}</p>
                                 <div>
-                                    <button onClick={() => handleBooking(item._id)} className="button-home">
+                                    <button onClick={() => handleBooking(item._id)} className="button-home"
+                                        style={{ backgroundColor: '#A9C46C' }}
+                                        >
                                         {item.participants.includes(user._id) ? 'בטל תור' : 'תפוס תור'}
                                     </button>
                                 </div>

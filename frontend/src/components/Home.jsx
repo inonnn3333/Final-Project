@@ -46,8 +46,6 @@ const Home = () => {
             }));
             addNotification('הפעולה בוצעה בהצלחה', 'success');
             return response;
-            // window.location.reload();
-
 
         } catch (error) {
             console.error('Error updating booking:', error.response?.data || error.message);
@@ -136,7 +134,6 @@ const Home = () => {
             />
 
             <div>
-                <h2>הודעות</h2>
                 <Notes/>
             </div>
             <div className='class-card-container'>
@@ -168,12 +165,15 @@ const Home = () => {
                                     <button
                                         onClick={() => handleBooking(index, item._id)}
                                         className="button-home"
-                                        disabled={item.participants.length >= 25}>
+                                        disabled={item.participants.length >= 25}
+                                        style={{ backgroundColor: bookingStatus[index] ? '#A9C46C' : null }}
+                                        >
                                         {item.participants.length >= 25 
                                             ? 'השיעור מלא' 
                                             : bookingStatus[index] 
                                                 ? 'בטל תור' 
-                                                : 'תפוס תור'}
+                                                : 'תפוס תור'
+                                        }
                                     </button>
                                 </div>
                             )}
