@@ -5,19 +5,61 @@
     padding: 0.2em;
 }
 
-button img {
-    width: 0.9em;
-}
-
 div .edit-button {
-    background-color: #FF6D4C;
-    width: 1.4em;
+    width: 1.9em;
     height: 1.4em;
-    border-radius: 0 0 3px 0;
-    border: none;
+    border-radius: 50px;
+    border: solid 1px #e45f41;
+    transition: background-color ease-in-out 0.2s;
 }
 
 div .edit-button:hover {
     background-color: #e45f41;
+    cursor: pointer;
+}
+
+div .edit-button img {
+    width: 0.9em;
+}
+
+div .edit-button:hover {
+    background-color: #e45f41;
+    cursor: pointer;
+}
+
+.new-message-box {
+    width: 25em;
+    height: 10em;
+    border-radius: 5px;
+    background-color: #e45f41;
+    padding: 0.2em;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.new-message-box form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #fff;
+}
+
+.new-message-box button {
+    width: 100%;
+    height: 2em;
+    border-radius: 5px;
+    border: solid 1px #e45f41;
+    background-color: #fff;
+    color: #e45f41;
+    transition: background-color ease-in-out 0.2s;
+}
+
+.new-message-box button:hover {
+    background-color: #e45f41;
+    color: #fff;
     cursor: pointer;
 }

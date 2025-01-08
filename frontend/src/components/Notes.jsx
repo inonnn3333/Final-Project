@@ -19,6 +19,7 @@ const Notes = () => {
         try {
             const response = await axios.post('http://localhost:1010/messages', formData);
             setData([...data, response.data]);
+            setEditBox(false);
         } catch (error) {
             console.error('Error adding new message:', error.response?.data || error.message);}
     }
@@ -53,11 +54,14 @@ const Notes = () => {
                 </div>
             
                 {!editBox ? null :
-                    <div>
+                    <div className='new-message-box'>
                         <form action="" onSubmit={addNewMessage}>
-                            <label>הודעה חדשה</label>
-                            <input type="text" onChange={handleChange}/>
-                            <button>הוסף הודעה</button>
+                            <label>הוספת הודעה חדשה</label>
+                            <input type="text" onChange={handleChange} placeholder='כתוב כאן הודעה'/>
+                            <div className='new-message-box-buttons'>
+                                <button>הוסף הודעה</button>
+                                <button onClick={ ()=> setEditBox(false)}>בטל</button>
+                            </div>
                         </form>
                     </div>
                 }
