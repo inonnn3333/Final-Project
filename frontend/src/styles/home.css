@@ -44,18 +44,19 @@ h2 {
 .button-home {
     width: 8em;
     border-radius: 10px 0 0 10px;
-    background-color: #FF6D4C;
-    border: none;
+    /* background-color: #FF6D4C; */
+    border: solid 1px #000;
     height: 100%;
 }
 
 .button-home:hover {
-    background-color: #ff6d4cdc;
+    background-color: #A9C46C;
+    /* border: solid 1px #FF6D4C; */
     cursor: pointer;
 }
 
 .search-input {
-    width: 20em;
+    width: 25em;
     border: solid 1px #000;
     border-radius: 100px;
     padding: 0.5em 1em 0.5em 0;

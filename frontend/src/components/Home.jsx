@@ -125,6 +125,11 @@ const Home = () => {
     return (
         <div className='home-container'>
             <h1>שיעורים</h1>
+
+            <div>
+                <Notes/>
+            </div>
+
             <input
                 type="text"
                 placeholder="חפש שיעור או מורה..."
@@ -132,10 +137,7 @@ const Home = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="search-input"   
             />
-
-            <div>
-                <Notes/>
-            </div>
+            
             <div className='class-card-container'>
                 {filteredData.length === 0 ? (
                     <p style={{ textAlign: 'center', marginTop: '2em', color: '#888' }}>לא נמצא שיעור או מורה</p>
