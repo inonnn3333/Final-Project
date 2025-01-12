@@ -21,3 +21,14 @@ app.post('/messages', async (req, res) => {
         res.status(500).json({ message: 'Server error.', error });
     }
 });
+
+//? מחיקת הודעה 
+app.delete('/messages/:id', async (req, res) => {
+    try {
+        await Message.findByIdAndDelete(req.params.id);
+        res.send({"message": "Message is deleted"});
+    } catch (error) {
+        console.error('Error deleting message:', error);
+        res.status(500).json({ message: 'Server error.', error });
+    }
+});

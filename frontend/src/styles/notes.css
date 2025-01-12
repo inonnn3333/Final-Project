@@ -4,6 +4,30 @@
     border-bottom: 1px solid #e45f41;
 }
 
+.message {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1em;
+    border-radius: 10px;
+    height: 1.5em;
+    padding: 0 0.5em 0 0;
+}
+
+.message li {
+    list-style-type: none;
+}
+
+.message:hover {
+    background-color: #dad8d8;
+    cursor: pointer;
+}
+
+.message:hover .admin-button {
+    display: block;
+}
+
 .message-box {
     width: 25em;
     border: solid 1px black;
@@ -13,21 +37,20 @@
     background-color: #f1f1f1;
 }
 
-div .edit-button {
-    width: 1.9em;
-    height: 1.4em;
-    border-radius: 50px;
+div .plus-button {
+    width: 100%;
+    height: 1.8em;
+    border-radius: 10px;
     border: solid 1px #e45f41;
+    padding-top: 6px;
     transition: background-color ease-in-out 0.2s;
 }
 
-/* Removed duplicate .edit-button:hover rule */
-
-div .edit-button img {
+div .plus-button img {
     width: 0.9em;
 }
 
-div .edit-button:hover {
+div .plus-button:hover {
     background-color: #e45f41;
     cursor: pointer;
 }
@@ -78,4 +101,28 @@ div .edit-button:hover {
     background-color: #e45f41;
     color: #fff;
     cursor: pointer;
+}
+
+.admin-buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.admin-button {
+    border: none;
+    display: none;
+    width: 2em;
+    height: 100%;
+    /* padding: 0.5em; */
+    border-radius: 10px;
+    background-color: #de3333c8;
+}
+
+.admin-button:hover {
+    background-color: #de3333;
+    cursor: pointer;
+}
+
+.admin-button img {
+    width: 1em;
 }

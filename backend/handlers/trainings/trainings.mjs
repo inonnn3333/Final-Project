@@ -197,7 +197,7 @@ app.patch('/trainings/:id', guard, async (req, res) => {
 app.delete('/trainings/:id', async (req, res) => {
     try {
         await Training.findByIdAndDelete(req.params.id);
-        res.send({"meassage": "Training is deleted"});
+        res.send({"message": "Training is deleted"});
     } catch (err) {
         console.error(err);
         res.status(500).send({"message": "Internal Server Error"});

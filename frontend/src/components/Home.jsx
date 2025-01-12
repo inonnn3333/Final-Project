@@ -186,8 +186,9 @@ const Home = () => {
                                     מחיקה
                                 </button>
                                 <button className='admin-btn-inner edit-button' onClick={() => handleEditClick(item._id)}>
-                                        <img src="/images/edit-icon.png" alt="edit-icon" />
-                                    עריכה</button>
+                                    <img src="/images/edit-icon.png" alt="edit-icon" />
+                                    עריכה
+                                </button>
                             </div>
                             )}
                         </div>

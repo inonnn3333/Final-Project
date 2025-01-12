@@ -13,9 +13,28 @@ const Notes = () => {
 
     const handleChange = (e) => {
         e.preventDefault();
-        setFormData({content: e.target.value, timestamp: `${moment().format('YYYY-MM-DD')}`});
+        setFormData({content: e.target.value, timestamp: `${moment().format('DD.MM.YYYY')}`});
     }
 
+    const handleDelete = async (itemId) => {
+        const confirmDelete = window.confirm("האם ברצונך למחוק את האימון?");
+        if (confirmDelete) {
+            try {
+                // showLoader();
+                await axios.delete(`http://localhost:1010/messages/${itemId}`, {});
+                setData((prevData) => prevData.filter((user) => user._id !== itemId));
+                // addNotification('המחיקה בוצעה בהצלחה', 'success');
+
+            } catch (error) {
+                console.error("Error deleting item:", error);
+                // addNotification('משהו השתבש, נסה שוב', 'error');
+            } finally {
+                setTimeout(() => {
+                    // hideLoader();
+                }, 1500);
+            }
+        }
+    };
 
     const addNewMessage = async (e) => {
         e.preventDefault();
@@ -47,14 +66,24 @@ const Notes = () => {
                 <h2 className='h2'>הודעות</h2>
                 <div>
                     {data.map((item) => ( // הרצת לולאה על המערך
-                        <div key={item.id} className='message'>
-                            <li>{item.timestamp} | {item.content}</li>
+                        <div key={item.id} className='message' >
+                            <li>{item.timestamp} | {item.content}</li> 
+                            {user?.isAdmin === false ? null : (
+                                <div className='admin-buttons'>
+                                    <button className='admin-button' onClick={() => handleDelete(item._id)}>
+                                        <img src="/images/edit-icon.png" alt="edit-icon" />
+                                    </button>
+                                    <button className='admin-button' onClick={() => handleDelete(item._id)}>
+                                        <img src="/images/trash-icon.png" alt="trash-icon" />
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>
                     {user?.isAdmin === false ? null : (
-                        <button className='edit-button' onClick={() => setEditBox(!editBox)}>
-                                <img src="/images/edit-icon.png" alt="edit-icon" />
+                        <button className='plus-button' onClick={() => setEditBox(!editBox)}>
+                                <img src="/images/plus-icon.png" alt="plus-icon" />
                         </button>
                     )}
             </div>
