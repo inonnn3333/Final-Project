@@ -16,6 +16,22 @@ const Notes = () => {
         setFormData({content: e.target.value, timestamp: `${moment().format('DD.MM.YYYY')}`});
     }
 
+    const handleEdit = async (itemId) => {
+        const newMessage = window.prompt("הכנס את ההודעה החדשה:");
+        if (newMessage) {
+            try {
+                await axios.patch(`http://localhost:1010/messages/${itemId}`, {content: newMessage});
+                setData((prevData) => prevData.map((item) => {
+                    if (item._id === itemId) {
+                        return {...item, content: newMessage};
+                    }
+                    return item;
+                }));
+            } catch (error) {
+                console.error('Error updating message:', error.response?.data || error.message);
+            }
+        }
+}
     const handleDelete = async (itemId) => {
         const confirmDelete = window.confirm("האם ברצונך למחוק את האימון?");
         if (confirmDelete) {
@@ -65,15 +81,16 @@ const Notes = () => {
             <div className='message-box'>
                 <h2 className='h2'>הודעות</h2>
                 <div>
+                {data.length=== 0 ? <p>אין הודעות חדשות..</p> : null}
                     {data.map((item) => ( // הרצת לולאה על המערך
                         <div key={item.id} className='message' >
                             <li>{item.timestamp} | {item.content}</li> 
                             {user?.isAdmin === false ? null : (
                                 <div className='admin-buttons'>
-                                    <button className='admin-button' onClick={() => handleDelete(item._id)}>
+                                    <button className='admin-button admin-edit-button' onClick={() => handleEdit(item._id)}>
                                         <img src="/images/edit-icon.png" alt="edit-icon" />
                                     </button>
-                                    <button className='admin-button' onClick={() => handleDelete(item._id)}>
+                                    <button className='admin-button admin-delete-button' onClick={() => handleDelete(item._id)}>
                                         <img src="/images/trash-icon.png" alt="trash-icon" />
                                     </button>
                                 </div>

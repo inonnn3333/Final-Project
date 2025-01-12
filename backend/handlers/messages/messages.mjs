@@ -22,6 +22,24 @@ app.post('/messages', async (req, res) => {
     }
 });
 
+
+//? עדכון הודעה
+app.patch('/messages/:id', async (req, res) => {
+    try {
+        const message = await Message.findById(req.params.id);
+        if (!message) {
+            return res.status(404).send({ message: 'Message not found' });
+        }
+        message.content = req.body.content;
+        await message.save();
+        res.send(message);
+    } catch (error) {
+        console.error('Error updating message:', error);
+        res.status(500).json({ message: 'Server error.', error });
+    }
+});
+
+
 //? מחיקת הודעה 
 app.delete('/messages/:id', async (req, res) => {
     try {

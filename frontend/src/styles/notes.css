@@ -113,13 +113,18 @@ div .plus-button:hover {
     display: none;
     width: 2em;
     height: 100%;
-    /* padding: 0.5em; */
     border-radius: 10px;
-    background-color: #de3333c8;
+}
+
+.admin-delete-button {
+    background-color: #de3333;
+}
+
+.admin-edit-button {
+    background-color: #33de33d4;
 }
 
 .admin-button:hover {
-    background-color: #de3333;
     cursor: pointer;
 }
 
