@@ -121,7 +121,8 @@ div .plus-button:hover {
 }
 
 .admin-edit-button {
-    background-color: #33de33d4;
+    /* background-color: #33de33d4; */
+    background-color: #5033ded4;
 }
 
 .admin-button:hover {
